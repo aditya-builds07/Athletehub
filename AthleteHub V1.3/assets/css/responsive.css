@@ -1,0 +1,100 @@
+/* ═══════════════════════════════════════════════════════
+   AthleteHub — Responsive Breakpoints
+   ═══════════════════════════════════════════════════════ */
+
+/* ── Tablet: ≤ 1024px ── */
+@media (max-width: 1024px) {
+  .page-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .page-grid-2col {
+    grid-template-columns: 1fr;
+  }
+
+  .page-wrapper {
+    padding: var(--space-4) var(--space-3);
+  }
+}
+
+/* ── Mobile: ≤ 768px ── */
+@media (max-width: 768px) {
+
+  /* Navigation */
+  .nav-links {
+    display: none;
+    position: fixed;
+    top: 64px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    padding: var(--space-6) var(--space-4);
+    gap: var(--space-2);
+    z-index: 99;
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .nav-link {
+    padding: var(--space-3) var(--space-4);
+    font-size: 16px;
+    border-radius: var(--radius);
+    width: 100%;
+  }
+
+  .nav-hamburger {
+    display: flex;
+  }
+
+  /* Footer */
+  .footer-inner {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  /* Typography */
+  h1 { font-size: 1.5rem; }
+  h2 { font-size: 1.25rem; }
+
+  /* Modal */
+  .glass-modal {
+    width: 95%;
+    padding: var(--space-5);
+    border-radius: var(--radius);
+  }
+
+  /* Toast */
+  .toast-container {
+    left: var(--space-3);
+    right: var(--space-3);
+    bottom: var(--space-3);
+  }
+
+  .toast {
+    min-width: auto;
+    width: 100%;
+  }
+}
+
+/* ── Small Mobile: ≤ 480px ── */
+@media (max-width: 480px) {
+  .page-wrapper {
+    padding: var(--space-3) var(--space-2);
+  }
+
+  .glass-card {
+    padding: var(--space-3);
+    border-radius: var(--radius-sm);
+  }
+
+  .btn-lg {
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+}

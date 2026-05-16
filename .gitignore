@@ -1,0 +1,10 @@
+/node_modules
+/.env
+/*.zip
+/*.rar
+/AthleteHub V1.3/uploads/posts/*
+/AthleteHub V1.3/uploads/profile_pics/*
+!/AthleteHub V1.3/uploads/profile_pics/README.md
+/AthleteHub-Admin/uploads/*
+.DS_Store
+Thumbs.db
