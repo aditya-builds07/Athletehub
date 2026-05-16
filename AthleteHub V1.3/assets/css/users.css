@@ -1,0 +1,253 @@
+/* ═══════════════════════════════════════════════════════
+   AthleteHub — Users Page Styles
+   ═══════════════════════════════════════════════════════ */
+
+.users-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: var(--space-4);
+}
+
+.users-header {
+    padding: var(--space-6);
+    margin-bottom: var(--space-6);
+}
+
+.users-header__top h1 {
+    font-size: 1.75rem;
+    margin-bottom: var(--space-1);
+    color: var(--text-dark, #0F172A);
+}
+
+.users-header__controls {
+    display: flex;
+    gap: var(--space-4);
+    margin-top: var(--space-6);
+    flex-wrap: wrap;
+}
+
+.search-wrapper {
+    flex: 1;
+    min-width: 250px;
+}
+
+.sort-select {
+    min-width: 200px;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.role-tabs {
+    display: flex;
+    gap: var(--space-2);
+    margin-top: var(--space-6);
+    overflow-x: auto;
+    padding-bottom: var(--space-2);
+}
+
+.role-tab {
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-pill, 50px);
+    background: rgba(255, 255, 255, 0.5);
+    color: var(--text-body, #334155);
+    border: 1px solid var(--border-subtle, rgba(0,0,0,0.06));
+    font-weight: 500;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.role-tab:hover {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.role-tab.active {
+    background: var(--primary, #6366f1);
+    color: #ffffff;
+    border-color: var(--primary, #6366f1);
+    box-shadow: var(--shadow-md, 0 4px 12px rgba(0,0,0,0.06));
+}
+
+/* Users Grid Mobile First */
+.users-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+}
+
+@media (min-width: 640px) {
+    .users-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 1024px) {
+    .users-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 1280px) {
+    .users-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* User Card */
+.user-card {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius, 16px);
+    padding: var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+}
+
+.user-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg, 0 8px 32px rgba(0,0,0,0.08));
+}
+
+.user-card__header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+}
+
+.user-card__avatar {
+    width: 64px;
+    height: 64px;
+    min-width: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: var(--shadow-sm);
+    border: 2px solid #fff;
+}
+
+/* Initials fallback when no profile picture exists */
+.user-card__initials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: 0.5px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.user-card__info {
+    flex: 1;
+    min-width: 0;
+}
+
+.user-card__info h3 {
+    font-size: clamp(1rem, 1.1vw, 1.125rem);
+    margin: 0;
+    color: var(--text-dark, #0F172A);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.verified {
+    color: var(--primary, #6366f1);
+    font-size: 1.1rem;
+}
+
+.user-card__info span {
+    font-size: 0.875rem;
+    color: var(--text-muted, #64748B);
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.user-card__meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 0.875rem;
+    color: var(--text-body, #334155);
+}
+
+.user-card__meta span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.badge {
+    align-self: flex-start;
+    padding: 2px 10px;
+    border-radius: var(--radius-xs, 4px);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.badge--athlete { background: var(--success-light, #DCFCE7); color: var(--success, #16A34A); }
+.badge--coach { background: var(--info-light, #E0F2FE); color: var(--info, #0284C7); }
+.badge--recruiter { background: var(--warning-light, #FEF3C7); color: var(--warning, #D97706); }
+.badge--club { background: rgba(147, 51, 234, 0.1); color: #9333EA; }
+
+.user-card__actions {
+    margin-top: auto;
+    display: flex;
+    gap: var(--space-2);
+}
+
+.user-card__actions .btn {
+    flex: 1;
+    text-align: center;
+    padding: 8px 12px;
+    font-size: 0.875rem;
+    border-radius: var(--radius-sm, 8px);
+    transition: all 0.3s ease;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 1px solid var(--primary, #6366f1);
+    color: var(--primary, #6366f1);
+}
+
+.btn-outline:hover {
+    background: var(--surface-hover, rgba(99, 102, 241, 0.06));
+}
+
+.btn--primary {
+    background: var(--primary, #6366f1);
+    color: #ffffff;
+    border: 1px solid var(--primary, #6366f1);
+}
+
+.btn--primary:hover {
+    background: var(--primary-hover, #4f46e5);
+}
+
+.pagination-btn {
+    padding: 8px 12px;
+    border-radius: var(--radius-xs, 4px);
+    background: rgba(255,255,255,0.5);
+    border: 1px solid var(--border-subtle, rgba(0,0,0,0.06));
+    color: var(--text-body);
+    transition: all 0.3s ease;
+}
+
+.pagination-btn:hover {
+    background: rgba(255,255,255,0.9);
+}
+
+.pagination-btn.active {
+    background: var(--primary, #6366f1);
+    color: #fff;
+    border-color: var(--primary, #6366f1);
+}
+
+@keyframes spin {
+    100% { transform: rotate(360deg); }
+}

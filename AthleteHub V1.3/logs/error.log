@@ -1,0 +1,72 @@
+[16-May-2026 11:48:32 Europe/Berlin] Database connection failed: SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it
+[16-May-2026 11:48:38 Europe/Berlin] Database connection failed: SQLSTATE[HY000] [2002] No connection could be made because the target machine actively refused it
+[16-May-2026 12:05:01 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function require_login() in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\pages\users.php:5
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\pages\users.php on line 5
+[16-May-2026 12:07:34 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function require_login() in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\pages\users.php:5
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\pages\users.php on line 5
+[16-May-2026 12:07:37 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function require_login() in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\pages\users.php:5
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\pages\users.php on line 5
+[16-May-2026 12:07:56 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function require_login() in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\pages\users.php:5
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\pages\users.php on line 5
+[16-May-2026 12:07:57 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function require_login() in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\pages\users.php:5
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\pages\users.php on line 5
+[16-May-2026 12:07:57 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function require_login() in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\pages\users.php:5
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\pages\users.php on line 5
+[16-May-2026 12:07:58 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function require_login() in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\pages\users.php:5
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\pages\users.php on line 5
+[16-May-2026 12:08:08 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function require_login() in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\pages\users.php:5
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\pages\users.php on line 5
+[16-May-2026 12:10:53 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function require_login() in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\pages\users.php:5
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\pages\users.php on line 5
+[16-May-2026 12:10:56 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function require_login() in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\pages\users.php:5
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\pages\users.php on line 5
+[16-May-2026 12:10:56 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function require_login() in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\pages\users.php:5
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\pages\users.php on line 5
+[16-May-2026 12:12:28 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\api\search_users.php:6) in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\api\search_users.php on line 10
+[16-May-2026 12:12:51 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\api\search_users.php:6) in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\api\search_users.php on line 10
+[16-May-2026 12:29:45 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function validate_csrf_token() in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\api\follow.php:15
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\api\follow.php on line 15
+[16-May-2026 12:29:49 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function validate_csrf_token() in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\api\follow.php:15
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\api\follow.php on line 15
+[16-May-2026 12:29:50 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function validate_csrf_token() in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\api\follow.php:15
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\api\follow.php on line 15
+[16-May-2026 12:29:50 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function validate_csrf_token() in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\api\follow.php:15
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\api\follow.php on line 15
+[16-May-2026 12:29:57 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function validate_csrf_token() in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\api\follow.php:15
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\api\follow.php on line 15
+[16-May-2026 12:29:58 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function validate_csrf_token() in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\api\follow.php:15
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\api\follow.php on line 15

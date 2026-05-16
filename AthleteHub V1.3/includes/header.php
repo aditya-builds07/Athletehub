@@ -112,6 +112,14 @@ $currentPage = basename($_SERVER['PHP_SELF'], '.php');
                 </a>
             </li>
             <li>
+                <a href="<?php echo $basePath; ?>/pages/users.php"
+                   class="nav-link <?php echo ($currentPage === 'users') ? 'active' : ''; ?>"
+                   id="navUsers">
+                    <span class="material-icons-round">people_alt</span>
+                    <span class="nav-label">People</span>
+                </a>
+            </li>
+            <li>
                 <a href="<?php echo $basePath; ?>/pages/recruitment.php"
                    class="nav-link <?php echo ($currentPage === 'recruitment') ? 'active' : ''; ?>"
                    id="navRecruit">

@@ -8,31 +8,39 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// Redirect to index (login) if user is not authenticated
-if (!isset($_SESSION['user_id'])) {
-    $projectRoot = str_replace('\\', '/', dirname(__DIR__));
-    $docRoot     = str_replace('\\', '/', $_SERVER['DOCUMENT_ROOT']);
-    $relPath     = '/' . trim(str_replace($docRoot, '', $projectRoot), '/');
-    header('Location: ' . $relPath . '/index.php');
-    exit();
-}
-
-
-// ── CSRF Token Management ──
+// CSRF token generation
 if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
 
-/**
- * Validate CSRF token from request.
- * Checks both POST body and X-CSRF-Token header (for AJAX JSON requests).
- * @return bool
- */
-function validate_csrf_token(): bool {
-    $token = $_POST['csrf_token']
-          ?? $_SERVER['HTTP_X_CSRF_TOKEN']
-          ?? '';
-    return hash_equals($_SESSION['csrf_token'], $token);
+// XSS escape helper
+function e($val): string {
+    return htmlspecialchars($val ?? '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+}
+
+// CSRF validation helper
+function validate_csrf(): void {
+    if (!hash_equals($_SESSION['csrf_token'] ?? '', $_POST['csrf_token'] ?? '')) {
+        http_response_code(403);
+        die(json_encode(['error' => 'CSRF token mismatch']));
+    }
+}
+
+// Auth check helper
+function require_login(string $redirect = '/'): void {
+    if (empty($_SESSION['user_id'])) {
+        header('Location: ' . $redirect);
+        exit();
+    }
+}
+
+// Role check helper
+function require_role(string $role, string $redirect = '/'): void {
+    require_login($redirect);
+    if (($_SESSION['role'] ?? '') !== $role) {
+        header('Location: ' . $redirect);
+        exit();
+    }
 }
 
 /**
