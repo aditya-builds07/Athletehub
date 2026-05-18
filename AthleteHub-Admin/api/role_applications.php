@@ -8,9 +8,18 @@ require_once __DIR__ . '/../includes/db.php';
 
 header('Content-Type: application/json');
 
-if (!isset($_SESSION['admin_id']) || $_SESSION['admin_role'] !== 'admin') {
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     echo json_encode(['success' => false, 'message' => 'Unauthorized']);
     exit;
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $submittedToken = $_POST['csrf_token'] ?? '';
+    $sessionToken   = $_SESSION['csrf_token'] ?? '';
+    if (empty($sessionToken) || !hash_equals($sessionToken, $submittedToken)) {
+        echo json_encode(['success' => false, 'message' => 'Invalid CSRF token']);
+        exit;
+    }
 }
 
 $action = $_POST['action'] ?? '';
@@ -19,7 +28,7 @@ switch ($action) {
 
     case 'approve':
         $appId = (int) ($_POST['app_id'] ?? 0);
-        $adminId = $_SESSION['admin_id'];
+        $adminId = $_SESSION['user_id'];
 
         // Get application details
         $stmt = $pdo->prepare("SELECT * FROM role_applications WHERE id = ?");
@@ -57,7 +66,7 @@ switch ($action) {
     case 'reject':
         $appId     = (int) ($_POST['app_id'] ?? 0);
         $adminNote = trim($_POST['admin_note'] ?? '');
-        $adminId   = $_SESSION['admin_id'];
+        $adminId   = $_SESSION['user_id'];
 
         if (empty($adminNote)) {
             echo json_encode(['success' => false, 'message' => 'Admin note is required for rejection']);

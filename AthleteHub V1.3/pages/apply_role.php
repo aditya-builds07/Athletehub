@@ -3,13 +3,12 @@
  * AthleteHub — Apply for Club / Recruiter Role
  * Professional Multi-Step Application Form
  */
-require_once '../config/db.php';
-if (session_status() === PHP_SESSION_NONE) session_start();
-
-if (!isset($_SESSION['user_id'])) {
-    header("Location: ../index.php");
-    exit;
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
 }
+require_once '../config/db.php';
+require_once '../includes/session.php';
+require_login(BASE_URL . '/index.php');
 
 $userId = $_SESSION['user_id'];
 $userRole = $_SESSION['role'] ?? 'athlete';
@@ -27,14 +26,24 @@ if (empty($userEmail) && isset($pdo)) {
 // If user is already club or recruiter
 if ($userRole === 'club' || $userRole === 'recruiter' || $userRole === 'admin') {
     $_SESSION['flash_msg'] = "You already have an elevated role.";
-    header("Location: feed.php");
-    exit;
+    header("Location: " . BASE_URL . "/pages/feed.php");
+    exit();
 }
 
 $pageTitle = "Apply for Elevated Role";
 
-// Check if user has an existing application
-$stmt = $pdo->prepare("SELECT * FROM role_applications WHERE user_id = ? ORDER BY created_at DESC LIMIT 1");
+// Check if user has an existing application — explicit columns listed, no SELECT *
+$stmt = $pdo->prepare("
+    SELECT 
+        id, user_id, requested_role, organisation_name, description, website, phone, 
+        document_path, document_type, status, admin_note, reviewed_by, reviewed_at, 
+        created_at, profile_photo, years_experience, team_player_count, city, country, 
+        instagram, twitter, linkedin, facebook, youtube, submitted_at
+    FROM role_applications 
+    WHERE user_id = ? 
+    ORDER BY created_at DESC 
+    LIMIT 1
+");
 $stmt->execute([$userId]);
 $application = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -166,6 +175,7 @@ require_once '../includes/header.php';
                 </div>
 
                 <form id="applyMultiStepForm" enctype="multipart/form-data">
+                    <input type="hidden" name="csrf_token" value="<?= e($_SESSION['csrf_token'] ?? '') ?>">
                     <input type="hidden" name="requested_role" id="inputRequestedRole">
                     
                     <!-- STEP 1: Basic Information -->
@@ -412,9 +422,9 @@ require_once '../includes/header.php';
                             <div class="review-section">
                                 <a href="javascript:void(0)" onclick="nextStep(1)" class="edit-btn">Edit</a>
                                 <div class="flex items-center gap-4 mb-3">
-                                    <img id="reviewProfileImg" src="../assets/img/default-avatar.png" class="w-12 h-12 rounded-full object-cover">
+                                    <img id="reviewProfileImg" src="<?= ASSETS ?>/images/default-avatar.png" class="w-12 h-12 rounded-full object-cover">
                                     <div>
-                                        <h4 class="font-bold text-lg leading-tight"><?= htmlspecialchars($userName) ?></h4>
+                                        <h4 class="font-bold text-lg leading-tight"><?= e($userName) ?></h4>
                                         <span id="reviewRole" class="micro-pill bg-primary/20 text-primary uppercase font-bold text-[10px]">Role</span>
                                     </div>
                                 </div>
@@ -471,11 +481,11 @@ require_once '../includes/header.php';
                             </label>
                         </div>
                         
-                        <div class="flex justify-between pt-4">
+                        <div class="flex flex-wrap justify-between items-center gap-4 pt-4">
                             <button type="button" class="btn btn-outline px-8 flex items-center gap-2" onclick="nextStep(3)">
                                 <span class="material-icons-round">arrow_back</span> Back
                             </button>
-                            <button type="submit" class="btn-submit-gradient rounded-lg px-12 py-4 text-lg font-bold flex justify-center items-center gap-3 w-full md:w-auto" id="finalSubmitBtn">
+                            <button type="submit" class="btn-submit-gradient rounded-lg px-10 py-4 text-base font-bold flex justify-center items-center gap-3 min-w-[220px]" id="finalSubmitBtn" style="color:#ffffff !important;">
                                 <span class="material-icons-round">verified</span>
                                 Submit Application
                             </button>
@@ -906,8 +916,13 @@ require_once '../includes/header.php';
 .btn-submit-gradient {
     background: linear-gradient(135deg, var(--primary) 0%, rgba(var(--primary-rgb), 0.6) 100%);
     border: none;
-    color: white;
+    color: #ffffff !important;
     transition: all 0.3s ease;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: inherit;
 }
 
 .btn-submit-gradient:hover:not(:disabled) {
@@ -952,6 +967,6 @@ require_once '../includes/header.php';
 <!-- Font Awesome for social icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<script src="../assets/js/apply_role.js?t=<?= time() ?>"></script>
+<script src="<?= ASSETS ?>/js/apply_role.js?t=<?= e(time()) ?>"></script>
 
 <?php require_once '../includes/footer.php'; ?>

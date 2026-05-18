@@ -1,17 +1,18 @@
 <?php
+session_start();
+
+require_once __DIR__ . '/../config/db.php';
+
 /**
  * AthleteHub — Global Header
  * Glassmorphism navigation bar with user dropdown.
  * Expects: $pageTitle (string) — sets the <title> tag.
  */
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
-// Base path for assets (uses the constant from config/db.php)
+// Base path for assets
 $basePath = defined('BASE_URL') ? BASE_URL : '';
-
+$assets = defined('ASSETS') ? ASSETS : $basePath . '/assets';
+$uploads = defined('UPLOADS') ? UPLOADS : $basePath . '/uploads';
 
 // User info from session
 $userName    = $_SESSION['name']    ?? 'User';
@@ -20,9 +21,9 @@ $userId      = $_SESSION['user_id'] ?? 0;
 $profilePic  = $_SESSION['profile_pic'] ?? '';
 
 // --- Self-Healing Cache ---
-// If the session says no picture, but the database has one, sync it silently so the user doesn't have to log out.
 if (empty($profilePic) && $userId && isset($pdo)) {
     try {
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $healStmt = $pdo->prepare("SELECT profile_pic FROM users WHERE id = ?");
         $healStmt->execute([$userId]);
         $dbPic = $healStmt->fetchColumn();
@@ -31,7 +32,7 @@ if (empty($profilePic) && $userId && isset($pdo)) {
             $_SESSION['profile_pic'] = $dbPic;
         }
     } catch (Exception $e) {
-        // fail silently 
+        error_log("Header profile_pic heal error: " . $e->getMessage());
     }
 }
 
@@ -46,10 +47,12 @@ if (isset($nameParts[1])) {
 $unreadCount = 0;
 if (isset($pdo) && $userId) {
     try {
-        $stmt = $pdo->prepare("SELECT COUNT(*) FROM messages WHERE receiver_id = ? AND is_read = 0");
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $stmt = $pdo->prepare("SELECT COUNT(id) FROM messages WHERE receiver_id = ? AND is_read = 0");
         $stmt->execute([$userId]);
         $unreadCount = (int) $stmt->fetchColumn();
     } catch (PDOException $e) {
+        error_log("Header messages count error: " . $e->getMessage());
         $unreadCount = 0;
     }
 }
@@ -63,6 +66,7 @@ $currentPage = basename($_SERVER['PHP_SELF'], '.php');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="AthleteHub — The premier sports networking platform for athletes, coaches, recruiters, and clubs.">
+    <meta name="csrf-token" content="<?php echo htmlspecialchars($_SESSION['csrf_token'] ?? ''); ?>">
     <title><?php echo htmlspecialchars($pageTitle ?? 'AthleteHub'); ?> — AthleteHub</title>
     <?php if (function_exists('csrf_meta_tag')) echo csrf_meta_tag(); ?>
 
@@ -75,17 +79,25 @@ $currentPage = basename($_SERVER['PHP_SELF'], '.php');
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="<?php echo $basePath; ?>/assets/css/main.css?t=<?php echo time(); ?>">
-    <link rel="stylesheet" href="<?php echo $basePath; ?>/assets/css/glass.css?t=<?php echo time(); ?>">
-    <link rel="stylesheet" href="<?php echo $basePath; ?>/assets/css/responsive.css?t=<?php echo time(); ?>">
+    <link rel="stylesheet" href="<?php echo htmlspecialchars($assets); ?>/css/main.css?t=<?php echo time(); ?>">
+    <link rel="stylesheet" href="<?php echo htmlspecialchars($assets); ?>/css/glass.css?t=<?php echo time(); ?>">
+    <link rel="stylesheet" href="<?php echo htmlspecialchars($assets); ?>/css/responsive.css?t=<?php echo time(); ?>">
     <?php if (!empty($pageCSS)): ?>
         <?php foreach ((array)$pageCSS as $css): ?>
-            <link rel="stylesheet" href="<?php echo $basePath; ?>/assets/css/<?php echo $css; ?>.css?t=<?php echo time(); ?>">
+            <link rel="stylesheet" href="<?php echo htmlspecialchars($assets); ?>/css/<?php echo htmlspecialchars($css); ?>.css?t=<?php echo time(); ?>">
         <?php endforeach; ?>
     <?php endif; ?>
 
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+        a, button, .nav-link, .glass-input { transition: all 0.3s ease; }
+        @media (min-width: 768px) {
+            .nav-inner { padding: 0 2rem; }
+        }
+    </style>
+
     <script>
-        window.AthleteHubBaseUrl = '<?php echo $basePath; ?>';
+        window.AthleteHubBaseUrl = '<?php echo htmlspecialchars($basePath); ?>';
     </script>
 </head>
 
@@ -96,15 +108,15 @@ $currentPage = basename($_SERVER['PHP_SELF'], '.php');
     <div class="nav-inner">
 
         <!-- Logo -->
-        <a href="<?php echo $basePath; ?>/pages/feed.php" class="nav-logo" id="navLogo">
-            <img src="<?php echo $basePath; ?>/assets/images/logo-trophy.png" alt="AthleteHub Logo" class="logo-image" style="width: 46px; height: 46px; object-fit: contain; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.15));">
+        <a href="<?php echo htmlspecialchars($basePath); ?>/pages/feed.php" class="nav-logo" id="navLogo">
+            <img src="<?php echo htmlspecialchars($assets); ?>/images/logo-trophy.png" alt="AthleteHub Logo" class="logo-image" style="width: 46px; height: 46px; object-fit: contain; filter: drop-shadow(0 2px 8px rgba(0,0,0,0.15));">
             <span class="logo-text">Athlete<strong>Hub</strong></span>
         </a>
 
         <!-- Navigation Links -->
         <ul class="nav-links" id="navLinks">
             <li>
-                <a href="<?php echo $basePath; ?>/pages/feed.php"
+                <a href="<?php echo htmlspecialchars($basePath); ?>/pages/feed.php"
                    class="nav-link <?php echo ($currentPage === 'feed') ? 'active' : ''; ?>"
                    id="navFeed">
                     <span class="material-icons-round">dynamic_feed</span>
@@ -112,7 +124,7 @@ $currentPage = basename($_SERVER['PHP_SELF'], '.php');
                 </a>
             </li>
             <li>
-                <a href="<?php echo $basePath; ?>/pages/users.php"
+                <a href="<?php echo htmlspecialchars($basePath); ?>/pages/users.php"
                    class="nav-link <?php echo ($currentPage === 'users') ? 'active' : ''; ?>"
                    id="navUsers">
                     <span class="material-icons-round">people_alt</span>
@@ -120,7 +132,7 @@ $currentPage = basename($_SERVER['PHP_SELF'], '.php');
                 </a>
             </li>
             <li>
-                <a href="<?php echo $basePath; ?>/pages/recruitment.php"
+                <a href="<?php echo htmlspecialchars($basePath); ?>/pages/recruitment.php"
                    class="nav-link <?php echo ($currentPage === 'recruitment') ? 'active' : ''; ?>"
                    id="navRecruit">
                     <span class="material-icons-round">work_outline</span>
@@ -128,7 +140,7 @@ $currentPage = basename($_SERVER['PHP_SELF'], '.php');
                 </a>
             </li>
             <li>
-                <a href="<?php echo $basePath; ?>/pages/tournaments.php"
+                <a href="<?php echo htmlspecialchars($basePath); ?>/pages/tournaments.php"
                    class="nav-link <?php echo ($currentPage === 'tournaments') ? 'active' : ''; ?>"
                    id="navTournaments">
                     <span class="material-icons-round">emoji_events</span>
@@ -136,7 +148,7 @@ $currentPage = basename($_SERVER['PHP_SELF'], '.php');
                 </a>
             </li>
             <li>
-                <a href="<?php echo $basePath; ?>/pages/news.php"
+                <a href="<?php echo htmlspecialchars($basePath); ?>/pages/news.php"
                    class="nav-link <?php echo ($currentPage === 'news') ? 'active' : ''; ?>"
                    id="navNews">
                     <span class="material-icons-round">newspaper</span>
@@ -144,22 +156,22 @@ $currentPage = basename($_SERVER['PHP_SELF'], '.php');
                 </a>
             </li>
             <li style="position: relative;">
-                <a href="<?php echo $basePath; ?>/pages/livestreams.php"
+                <a href="<?php echo htmlspecialchars($basePath); ?>/pages/livestreams.php"
                    class="nav-link <?php echo ($currentPage === 'livestreams') ? 'active' : ''; ?>"
                    id="navLive">
-                    <span class="material-icons-round" style="color:var(--red-500)">sensors</span>
+                    <span class="material-icons-round" style="color:var(--red-500, #ef4444)">sensors</span>
                     <span class="nav-label">Live</span>
-                    <span class="live-dot-indicator shadow-glow" id="liveDotIndicator" style="display:none; width: 8px; height: 8px; background: var(--red-500); border-radius: 50%; position: absolute; top: 12px; right: 12px; animation: pulse 2s infinite;"></span>
+                    <span class="live-dot-indicator shadow-glow" id="liveDotIndicator" style="display:none; width: 8px; height: 8px; background: var(--red-500, #ef4444); border-radius: 50%; position: absolute; top: 12px; right: 12px; animation: pulse 2s infinite;"></span>
                 </a>
             </li>
             <li>
-                <a href="<?php echo $basePath; ?>/pages/messages.php"
+                <a href="<?php echo htmlspecialchars($basePath); ?>/pages/messages.php"
                    class="nav-link <?php echo ($currentPage === 'messages') ? 'active' : ''; ?>"
                    id="navMessages">
                     <span class="material-icons-round">chat_bubble_outline</span>
                     <span class="nav-label">Messages</span>
                     <?php if ($unreadCount > 0): ?>
-                        <span class="badge-count" id="unreadBadge"><?php echo $unreadCount; ?></span>
+                        <span class="badge-count" id="unreadBadge"><?php echo htmlspecialchars((string)$unreadCount); ?></span>
                     <?php endif; ?>
                 </a>
             </li>
@@ -170,11 +182,14 @@ $currentPage = basename($_SERVER['PHP_SELF'], '.php');
 
             <!-- Global Search -->
             <div class="nav-search-wrapper" id="globalSearchWrapper">
-                <input type="text" class="glass-input search-input" id="globalSearchInput" placeholder="" autocomplete="off">
+                <input type="text" class="glass-input search-input" id="globalSearchInput" placeholder="Search..." autocomplete="off">
                 <span class="material-icons-round search-icon">search</span>
                 <div class="search-dropdown" id="searchDropdown">
-                    <div class="search-results-list" id="searchResultsList"></div>
-                    <div class="search-loading" id="searchLoading" style="display: none;">Searching...</div>
+                    <div class="search-results-list" id="searchResultsList">
+                        <div class="search-empty" style="display:none; padding: 10px; color: var(--text-muted, #6b7280);">No results found.</div>
+                        <div class="search-error" style="display:none; padding: 10px; color: var(--red-500, #ef4444);">Error fetching results.</div>
+                    </div>
+                    <div class="search-loading" id="searchLoading" style="display: none; padding: 10px; color: var(--text-muted, #6b7280);">Searching...</div>
                 </div>
             </div>
 
@@ -187,10 +202,10 @@ $currentPage = basename($_SERVER['PHP_SELF'], '.php');
             <div class="nav-user" id="userMenu">
                 <button class="avatar-circle avatar-md" id="userAvatarBtn" aria-label="User menu">
                     <?php if ($profilePic): ?>
-                        <img src="<?php echo $basePath . '/uploads/profile_pics/' . htmlspecialchars($profilePic); ?>"
+                        <img src="<?php echo htmlspecialchars($uploads); ?>/profile_pics/<?php echo htmlspecialchars($profilePic); ?>"
                              alt="<?php echo htmlspecialchars($userName); ?>">
                     <?php else: ?>
-                        <span class="avatar-initials"><?php echo $initials; ?></span>
+                        <span class="avatar-initials"><?php echo htmlspecialchars($initials); ?></span>
                     <?php endif; ?>
                 </button>
 
@@ -198,38 +213,43 @@ $currentPage = basename($_SERVER['PHP_SELF'], '.php');
                 <div class="dropdown-menu glass-card" id="userDropdown">
                     <div class="dropdown-header">
                         <strong><?php echo htmlspecialchars($userName); ?></strong>
-                        <span class="text-muted"><?php echo ucfirst(htmlspecialchars($userRole)); ?></span>
+                        <span class="text-muted"><?php echo htmlspecialchars(ucfirst($userRole)); ?></span>
                     </div>
                     <div class="dropdown-divider"></div>
-                    <a href="<?php echo $basePath; ?>/pages/profile.php?id=<?php echo $userId; ?>" class="dropdown-item" id="dropdownProfile">
+                    <a href="<?php echo htmlspecialchars($basePath); ?>/pages/profile.php?id=<?php echo htmlspecialchars((string)$userId); ?>" class="dropdown-item" id="dropdownProfile">
                         <span class="material-icons-round">person_outline</span> My Profile
                     </a>
-                    <a href="<?php echo $basePath; ?>/pages/edit-profile.php" class="dropdown-item" id="dropdownSettings">
+                    <a href="<?php echo htmlspecialchars($basePath); ?>/pages/edit-profile.php" class="dropdown-item" id="dropdownSettings">
                         <span class="material-icons-round">settings</span> Settings
                     </a>
                     <?php if ($userRole === 'athlete' || $userRole === 'coach'): ?>
-                        <a href="<?php echo $basePath; ?>/pages/apply_role.php" class="dropdown-item" id="dropdownApplyRole">
-                            <span class="material-icons-round text-primary">how_to_reg</span> Elevate Account
+                        <a href="<?php echo htmlspecialchars($basePath); ?>/pages/apply_role.php" class="dropdown-item" id="dropdownApplyRole">
+                            <span class="material-icons-round" style="color: var(--primary, #6366f1);">how_to_reg</span> Elevate Account
                         </a>
                     <?php endif; ?>
                     <?php if ($userRole === 'admin'): ?>
                         <?php 
                             $pendingRoles = 0;
                             if (isset($pdo)) {
-                                $stmtRole = $pdo->query("SELECT COUNT(*) FROM role_applications WHERE status = 'pending'");
-                                $pendingRoles = (int)$stmtRole->fetchColumn();
+                                try {
+                                    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                                    $stmtRole = $pdo->query("SELECT COUNT(id) FROM role_applications WHERE status = 'pending'");
+                                    $pendingRoles = (int)$stmtRole->fetchColumn();
+                                } catch (PDOException $e) {
+                                    error_log("Header pending roles error: " . $e->getMessage());
+                                }
                             }
                         ?>
                         <div class="dropdown-divider"></div>
-                        <a href="<?php echo $basePath; ?>/pages/admin/role_applications.php" class="dropdown-item" id="dropdownAdminRoles">
+                        <a href="<?php echo htmlspecialchars($basePath); ?>/pages/admin/role_applications.php" class="dropdown-item" id="dropdownAdminRoles">
                             <span class="material-icons-round text-yellow-500">admin_panel_settings</span> Role Applications
                             <?php if ($pendingRoles > 0): ?>
-                                <span class="bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded-full ml-auto"><?= $pendingRoles ?></span>
+                                <span class="bg-red-500 text-white text-[10px] px-1.5 py-0.5 rounded-full ml-auto"><?php echo htmlspecialchars((string)$pendingRoles); ?></span>
                             <?php endif; ?>
                         </a>
                     <?php endif; ?>
                     <div class="dropdown-divider"></div>
-                    <a href="<?php echo $basePath; ?>/api/logout.php" class="dropdown-item dropdown-item--danger" id="dropdownLogout">
+                    <a href="<?php echo htmlspecialchars($basePath); ?>/api/logout.php" class="dropdown-item dropdown-item--danger" id="dropdownLogout">
                         <span class="material-icons-round">logout</span> Logout
                     </a>
                 </div>

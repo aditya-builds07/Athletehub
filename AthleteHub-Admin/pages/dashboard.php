@@ -4,7 +4,6 @@
  * Overview stats + recent users + quick actions.
  */
 require_once __DIR__ . '/../includes/auth_check.php';
-require_once __DIR__ . '/../includes/db.php';
 
 $pageTitle   = 'Dashboard';
 $currentPage = 'dashboard';
@@ -39,7 +38,7 @@ $recentUsers = $pdo->query("SELECT id, name, email, role, is_verified, created_a
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $pageTitle; ?> — AthleteHub Admin</title>
+    <title><?php echo e($pageTitle); ?> — AthleteHub Admin</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -70,12 +69,12 @@ $recentUsers = $pdo->query("SELECT id, name, email, role, is_verified, created_a
                     ['label'=>'Open Tournaments',  'value'=>$stats['open_tournaments'], 'icon'=>'emoji_events',   'color'=>'#8b5cf6'],
                 ];
                 foreach ($cards as $c): ?>
-                    <div class="stat-card" style="--card-accent: <?php echo $c['color']; ?>">
-                        <div class="stat-icon" style="background:<?php echo $c['color']; ?>20; color:<?php echo $c['color']; ?>">
-                            <span class="material-icons-round"><?php echo $c['icon']; ?></span>
+                    <div class="stat-card" style="--card-accent: <?php echo e($c['color']); ?>">
+                        <div class="stat-icon" style="background:<?php echo e($c['color']); ?>20; color:<?php echo e($c['color']); ?>">
+                            <span class="material-icons-round"><?php echo e($c['icon']); ?></span>
                         </div>
                         <div class="stat-value"><?php echo number_format($c['value']); ?></div>
-                        <div class="stat-label"><?php echo $c['label']; ?></div>
+                        <div class="stat-label"><?php echo e($c['label']); ?></div>
                     </div>
                 <?php endforeach; ?>
             </div>
@@ -84,7 +83,7 @@ $recentUsers = $pdo->query("SELECT id, name, email, role, is_verified, created_a
             <div class="quick-actions">
                 <a href="<?php echo BASE_URL; ?>/pages/role_applications.php" class="btn btn-warning">
                     <span class="material-icons-round">assignment</span>
-                    View Pending Applications (<?php echo $stats['pending_apps']; ?>)
+                    View Pending Applications (<?php echo e($stats['pending_apps']); ?>)
                 </a>
                 <a href="<?php echo BASE_URL; ?>/pages/users.php" class="btn btn-primary">
                     <span class="material-icons-round">group</span>
@@ -112,10 +111,10 @@ $recentUsers = $pdo->query("SELECT id, name, email, role, is_verified, created_a
                     <tbody>
                         <?php foreach ($recentUsers as $u): ?>
                         <tr>
-                            <td>#<?php echo $u['id']; ?></td>
-                            <td><?php echo htmlspecialchars($u['name']); ?></td>
-                            <td><?php echo htmlspecialchars($u['email']); ?></td>
-                            <td><span class="badge badge-<?php echo $u['role']; ?>"><?php echo $u['role']; ?></span></td>
+                            <td>#<?php echo e($u['id']); ?></td>
+                            <td><?php echo e($u['name']); ?></td>
+                            <td><?php echo e($u['email']); ?></td>
+                            <td><span class="badge badge-<?php echo e($u['role']); ?>"><?php echo e($u['role']); ?></span></td>
                             <td>
                                 <?php if ($u['is_verified']): ?>
                                     <span class="material-icons-round verified-icon">verified</span>

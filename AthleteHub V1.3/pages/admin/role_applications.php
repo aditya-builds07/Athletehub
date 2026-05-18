@@ -2,18 +2,24 @@
 /**
  * AthleteHub — Admin Role Applications
  */
-require_once '../../config/db.php';
-session_start();
-
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
-    header("Location: ../feed.php");
-    exit;
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
 }
+require_once __DIR__ . '/../../config/db.php';
+require_once __DIR__ . '/../../includes/session.php';
+require_role('admin', BASE_URL . '/index.php');
 
 $statusFilter = $_GET['status'] ?? 'all';
 
 $query = "
-    SELECT ra.*, u.name as applicant_name, u.role as current_role, u.email
+    SELECT 
+        ra.id, ra.user_id, ra.requested_role, ra.organisation_name, ra.description,
+        ra.website, ra.phone, ra.document_path, ra.document_type, ra.status,
+        ra.admin_note, ra.reviewed_by, ra.reviewed_at, ra.created_at,
+        ra.profile_photo, ra.years_experience, ra.team_player_count,
+        ra.city, ra.country, ra.instagram, ra.twitter, ra.linkedin,
+        ra.facebook, ra.youtube, ra.submitted_at,
+        u.name as applicant_name, u.role as current_role, u.email
     FROM role_applications ra
     JOIN users u ON ra.user_id = u.id
 ";
@@ -29,7 +35,7 @@ $stmt->execute($params);
 $applications = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $pageTitle = "Role Applications | Admin";
-require_once '../../includes/header.php';
+require_once __DIR__ . '/../../includes/header.php';
 ?>
 
 <div class="layout-wrapper pt-20 pb-12">
@@ -71,10 +77,10 @@ require_once '../../includes/header.php';
                             <?php foreach ($applications as $app): ?>
                                 <tr class="hover:bg-white hover:bg-opacity-5 transition-colors">
                                     <td class="p-4 border-b border-white border-opacity-5">
-                                        <a href="../profile.php?id=<?= $app['user_id'] ?>" class="font-bold text-primary hover:underline flex items-center gap-1">
-                                            <?= htmlspecialchars($app['applicant_name']) ?>
+                                        <a href="<?= BASE_URL ?>/pages/profile.php?id=<?= e($app['user_id']) ?>" class="font-bold text-primary hover:underline flex items-center gap-1">
+                                            <?= e($app['applicant_name']) ?>
                                         </a>
-                                        <div class="text-xs text-muted mt-1"><?= htmlspecialchars($app['phone']) ?></div>
+                                        <div class="text-xs text-muted mt-1"><?= e($app['phone']) ?></div>
                                     </td>
                                     <td class="p-4 border-b border-white border-opacity-5">
                                         <div class="text-xs font-semibold">Current: <span class="uppercase text-muted"><?= $app['current_role'] ?></span></div>
@@ -125,10 +131,10 @@ require_once '../../includes/header.php';
             <textarea id="adminNote" class="glass-input w-full min-h-[60px]" placeholder="Explain reason for rejection or add an approval note..."></textarea>
             
             <div class="flex gap-2 mt-4" id="reviewActions">
-                <button class="btn btn-sm flex-1 bg-green-600 hover:bg-green-500 border-green-500 text-white" onclick="processApplication('approve')">
+                <button id="approveBtn" class="btn btn-sm flex-1 bg-green-600 hover:bg-green-500 border-green-500 text-white" onclick="processApplication('approve')">
                     <span class="material-icons-round text-sm">check_circle</span> Approve
                 </button>
-                <button class="btn btn-sm flex-1 bg-red-600 hover:bg-red-500 border-red-500 text-white" onclick="processApplication('reject')">
+                <button id="rejectBtn" class="btn btn-sm flex-1 bg-red-600 hover:bg-red-500 border-red-500 text-white" onclick="processApplication('reject')">
                     <span class="material-icons-round text-sm">cancel</span> Reject
                 </button>
             </div>
@@ -215,12 +221,24 @@ async function processApplication(action) {
 
     if (!confirm(`Are you sure you want to ${action} this application?`)) return;
 
+    const approveBtn = document.getElementById('approveBtn');
+    const rejectBtn = document.getElementById('rejectBtn');
+    if (approveBtn) approveBtn.disabled = true;
+    if (rejectBtn) rejectBtn.disabled = true;
+
     const formData = new FormData();
     formData.append('application_id', currentAppId);
     formData.append('admin_note', note);
+    
+    // Attach CSRF token
+    const csrfMeta = document.querySelector('meta[name="csrf-token"]');
+    if (csrfMeta) {
+        formData.append('csrf_token', csrfMeta.content);
+    }
 
     try {
-        const res = await fetch(`../../api/role_application.php?action=${action}`, {
+        const basePath = window.AthleteHubBaseUrl || '';
+        const res = await fetch(`${basePath}/api/role_application.php?action=${action}`, {
             method: 'POST',
             body: formData
         });
@@ -236,8 +254,11 @@ async function processApplication(action) {
     } catch (err) {
         console.error(err);
         alert('Network error occurred.');
+    } finally {
+        if (approveBtn) approveBtn.disabled = false;
+        if (rejectBtn) rejectBtn.disabled = false;
     }
 }
 </script>
 
-<?php require_once '../../includes/footer.php'; ?>
+<?php require_once __DIR__ . '/../../includes/footer.php'; ?>

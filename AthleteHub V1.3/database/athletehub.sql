@@ -328,6 +328,20 @@ CREATE TABLE IF NOT EXISTS `live_streams` (
 -- ── Role Applications & Verification ──
 ALTER TABLE `users` ADD COLUMN IF NOT EXISTS `is_verified` TINYINT(1) DEFAULT 0;
 
+-- ── Notifications Table ──
+CREATE TABLE IF NOT EXISTS `notifications` (
+  `id`          INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  `user_id`     INT UNSIGNED NOT NULL,
+  `type`        VARCHAR(50) NOT NULL,
+  `message`     TEXT NOT NULL,
+  `is_read`     TINYINT(1) NOT NULL DEFAULT 0,
+  `created_at`  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE,
+  INDEX `idx_notifications_user_id` (`user_id`),
+  INDEX `idx_notifications_created_at` (`created_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ── Role Applications Table ──
 CREATE TABLE IF NOT EXISTS `role_applications` (
   `id`                INT AUTO_INCREMENT PRIMARY KEY,
   `user_id`           INT UNSIGNED NOT NULL,
@@ -338,12 +352,29 @@ CREATE TABLE IF NOT EXISTS `role_applications` (
   `phone`             VARCHAR(20) NOT NULL,
   `document_path`     VARCHAR(500) NOT NULL,
   `document_type`     VARCHAR(100) NOT NULL,
+  `profile_photo`     VARCHAR(255) DEFAULT NULL,
+  `years_experience`  INT DEFAULT NULL,
+  `team_player_count` INT DEFAULT NULL,
+  `city`              VARCHAR(100) DEFAULT NULL,
+  `country`           VARCHAR(100) DEFAULT NULL,
+  `instagram`         VARCHAR(100) DEFAULT NULL,
+  `twitter`           VARCHAR(100) DEFAULT NULL,
+  `linkedin`          VARCHAR(255) DEFAULT NULL,
+  `facebook`          VARCHAR(255) DEFAULT NULL,
+  `youtube`           VARCHAR(255) DEFAULT NULL,
   `status`            ENUM('pending','approved','rejected') DEFAULT 'pending',
   `admin_note`        TEXT DEFAULT NULL,
   `reviewed_by`       INT UNSIGNED DEFAULT NULL,
   `reviewed_at`       DATETIME DEFAULT NULL,
+  `submitted_at`      DATETIME DEFAULT NULL,
   `created_at`        DATETIME DEFAULT NOW(),
   FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE,
   FOREIGN KEY (`reviewed_by`) REFERENCES `users`(`id`) ON DELETE SET NULL,
-  UNIQUE KEY `unique_pending` (`user_id`, `requested_role`, `status`)
-);
+  UNIQUE KEY `unique_pending` (`user_id`, `requested_role`, `status`),
+  INDEX `idx_role_applications_status` (`status`),
+  INDEX `idx_role_applications_user_id` (`user_id`),
+  INDEX `idx_role_applications_created_at` (`created_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+CREATE INDEX IF NOT EXISTS `idx_users_role` ON `users`(`role`);
+

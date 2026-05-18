@@ -1,0 +1,446 @@
+/* ═══════════════════════════════════════════════════════════
+   AthleteHub Admin — Role Requests Dedicated Stylesheet
+   Supplements admin.css. Do NOT put these rules in admin.css.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Page Header ─────────────────────────────────────────── */
+.rr-page-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.rr-page-header h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: .25rem;
+}
+
+.rr-page-header p {
+    font-size: .85rem;
+    color: var(--text-muted);
+}
+
+/* ── Stats Bar ───────────────────────────────────────────── */
+.rr-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.rr-stat {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: transform var(--transition), box-shadow var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.rr-stat::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--stat-accent, var(--accent-gradient));
+}
+
+.rr-stat:hover { transform: translateY(-2px); box-shadow: var(--shadow-card); }
+
+.rr-stat--total  { --stat-accent: var(--accent-gradient); }
+.rr-stat--pending { --stat-accent: linear-gradient(90deg, #eab308, #f59e0b); }
+.rr-stat--approved { --stat-accent: linear-gradient(90deg, #22c55e, #16a34a); }
+.rr-stat--rejected { --stat-accent: linear-gradient(90deg, #ef4444, #dc2626); }
+
+.rr-stat-icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-size: 22px;
+}
+
+.rr-stat--total   .rr-stat-icon { background: rgba(99,102,241,.15); color: var(--accent-light); }
+.rr-stat--pending .rr-stat-icon { background: rgba(234,179,8,.15);  color: var(--yellow); }
+.rr-stat--approved .rr-stat-icon { background: rgba(34,197,94,.15); color: var(--green); }
+.rr-stat--rejected .rr-stat-icon { background: rgba(239,68,68,.15); color: var(--red); }
+
+.rr-stat-body { flex: 1; }
+
+.rr-stat-value {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1;
+}
+
+.rr-stat-label {
+    font-size: .75rem;
+    color: var(--text-muted);
+    margin-top: .25rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+}
+
+/* ── Toolbar / Filters ───────────────────────────────────── */
+.rr-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.rr-toolbar .search-box { flex: 1; min-width: 220px; }
+.rr-toolbar-right { display: flex; gap: .75rem; align-items: center; flex-wrap: wrap; }
+
+/* ── Status Badges ───────────────────────────────────────── */
+.badge-status-pending  { background: rgba(234,179,8,.12);  color: #facc15; }
+.badge-status-approved { background: rgba(34,197,94,.12);  color: #4ade80; }
+.badge-status-rejected { background: rgba(239,68,68,.12);  color: #f87171; }
+
+/* ── Role Badges ─────────────────────────────────────────── */
+.badge-role-club      { background: rgba(139,92,246,.15); color: #a78bfa; }
+.badge-role-recruiter { background: rgba(249,115,22,.15); color: #fb923c; }
+
+/* ── Review Link Button ──────────────────────────────────── */
+.rr-review-link {
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+    padding: .4rem .85rem;
+    border-radius: 7px;
+    font-size: .78rem;
+    font-weight: 600;
+    border: 1px solid var(--border-color);
+    background: transparent;
+    color: var(--text-secondary);
+    transition: all var(--transition);
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+.rr-review-link:hover {
+    background: var(--bg-hover);
+    color: var(--text-primary);
+    border-color: var(--border-light);
+}
+
+.rr-review-link .material-icons-round { font-size: 15px; }
+
+/* ── Pagination ──────────────────────────────────────────── */
+.rr-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--border-color);
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.rr-pagination-info {
+    font-size: .8rem;
+    color: var(--text-muted);
+}
+
+.rr-pagination-links {
+    display: flex;
+    gap: .35rem;
+}
+
+.rr-page-btn {
+    width: 32px; height: 32px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 7px;
+    border: 1px solid var(--border-color);
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: .8rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    transition: all var(--transition);
+    text-decoration: none;
+}
+
+.rr-page-btn:hover { background: var(--bg-hover); color: var(--text-primary); }
+.rr-page-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+.rr-page-btn:disabled { opacity: .4; cursor: not-allowed; }
+
+/* ═══════════════════════════════════════════════════════════
+   role_request_detail.php — Detail Page
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Back Nav ────────────────────────────────────────────── */
+.rr-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    font-size: .85rem;
+    color: var(--text-muted);
+    margin-bottom: 1.5rem;
+    transition: color var(--transition);
+    text-decoration: none;
+}
+
+.rr-back-link:hover { color: var(--text-primary); }
+.rr-back-link .material-icons-round { font-size: 18px; }
+
+/* ── Detail Layout ───────────────────────────────────────── */
+.rr-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 1.5rem;
+    align-items: start;
+}
+
+/* ── Section Card ────────────────────────────────────────── */
+.rr-section {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+}
+
+.rr-section-header {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.rr-section-header .material-icons-round {
+    font-size: 18px;
+    color: var(--accent-light);
+}
+
+.rr-section-header h3 {
+    font-size: .9rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.rr-section-body { padding: 1.25rem 1.5rem; }
+
+/* ── Applicant Profile Card ──────────────────────────────── */
+.rr-applicant-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem 1.5rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.rr-applicant-avatar {
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    background: var(--accent-gradient);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 auto 1rem;
+    overflow: hidden;
+    border: 3px solid var(--border-color);
+}
+
+.rr-applicant-avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+.rr-applicant-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: .25rem;
+}
+
+.rr-applicant-email {
+    font-size: .8rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+/* ── Field Rows ──────────────────────────────────────────── */
+.rr-field {
+    display: flex;
+    padding: .65rem 0;
+    border-bottom: 1px solid var(--border-color);
+    font-size: .85rem;
+    gap: 1rem;
+}
+
+.rr-field:last-child { border-bottom: none; }
+
+.rr-field-label {
+    width: 145px;
+    flex-shrink: 0;
+    color: var(--text-muted);
+    font-weight: 500;
+    font-size: .8rem;
+}
+
+.rr-field-value {
+    color: var(--text-primary);
+    flex: 1;
+    word-break: break-word;
+}
+
+/* ── Social Links ────────────────────────────────────────── */
+.rr-social-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+}
+
+.rr-social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+    padding: .35rem .75rem;
+    border-radius: 6px;
+    font-size: .75rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all var(--transition);
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    background: var(--bg-input);
+}
+
+.rr-social-link:hover { border-color: var(--accent); color: var(--accent-light); }
+.rr-social-link .material-icons-round { font-size: 14px; }
+
+/* ── Document Preview ────────────────────────────────────── */
+.rr-doc-preview {
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-top: .75rem;
+}
+
+.rr-doc-preview img {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-height: 320px;
+    object-fit: contain;
+    background: var(--bg-input);
+}
+
+/* ── Decision Panel ──────────────────────────────────────── */
+.rr-decision-panel {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    position: sticky;
+    top: calc(var(--header-height) + 1rem);
+}
+
+.rr-decision-header {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+}
+
+.rr-decision-header .material-icons-round { font-size: 18px; color: var(--accent-light); }
+.rr-decision-header h3 { font-size: .9rem; font-weight: 600; }
+
+.rr-decision-body { padding: 1.25rem 1.5rem; }
+
+.rr-decision-actions {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+    margin-top: 1.25rem;
+}
+
+.rr-decision-actions .btn { width: 100%; justify-content: center; padding: .75rem; }
+
+/* ── Already Reviewed Banner ─────────────────────────────── */
+.rr-reviewed-banner {
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: flex-start;
+    gap: .75rem;
+    font-size: .85rem;
+    margin-bottom: 1rem;
+}
+
+.rr-reviewed-banner.approved {
+    background: rgba(34,197,94,.08);
+    border: 1px solid rgba(34,197,94,.25);
+    color: #4ade80;
+}
+
+.rr-reviewed-banner.rejected {
+    background: rgba(239,68,68,.08);
+    border: 1px solid rgba(239,68,68,.25);
+    color: #f87171;
+}
+
+.rr-reviewed-banner .material-icons-round { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+
+.rr-reviewed-meta {
+    font-size: .75rem;
+    color: var(--text-muted);
+    margin-top: .25rem;
+}
+
+/* ── Confirm Modal (used in role_requests.js) ────────────── */
+.rr-confirm-modal-icon {
+    width: 64px; height: 64px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px;
+    margin: 0 auto 1rem;
+}
+
+.rr-confirm-modal-icon.approve { background: rgba(34,197,94,.15); color: var(--green); }
+.rr-confirm-modal-icon.reject  { background: rgba(239,68,68,.15);  color: var(--red); }
+
+.rr-confirm-modal-title {
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: .5rem;
+}
+
+.rr-confirm-modal-subtitle {
+    text-align: center;
+    font-size: .85rem;
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 1024px) {
+    .rr-stats { grid-template-columns: repeat(2, 1fr); }
+    .rr-detail-grid { grid-template-columns: 1fr; }
+    .rr-decision-panel { position: static; }
+}
+
+@media (max-width: 640px) {
+    .rr-stats { grid-template-columns: repeat(2, 1fr); }
+    .rr-toolbar { flex-direction: column; align-items: stretch; }
+    .rr-toolbar-right { width: 100%; }
+    .rr-page-header { flex-direction: column; }
+    .rr-pagination { flex-direction: column; align-items: flex-start; }
+}

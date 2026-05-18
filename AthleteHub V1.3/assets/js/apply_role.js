@@ -211,53 +211,88 @@ function handleFileSelect(input) {
 }
 
 /**
- * Populate Review Step
+ * Populate Review Step — null-safe version.
+ * A crash anywhere here causes all subsequent fields to stay blank.
  */
 function populateReview() {
-    // Identity
-    document.getElementById('reviewProfileImg').src = document.getElementById('profilePreviewImg').src;
-    document.getElementById('reviewRole').textContent = selectedRole.toUpperCase();
-    document.getElementById('reviewLocation').textContent = `${val('city')}, ${val('country')}`;
-    document.getElementById('reviewPhone').textContent = val('phone');
-    
-    // Organisation
-    const orgName = selectedRole === 'club' ? val('orgNameClub') : val('orgNameRec');
-    document.getElementById('reviewOrgName').textContent = orgName;
-    
-    if (selectedRole === 'club') {
-        document.getElementById('reviewExp').textContent = `Est. ${val('yearEst')}`;
-        document.getElementById('reviewStatLabel').textContent = 'Members';
-        document.getElementById('reviewStatVal').textContent = val('playerCount') || '0';
-    } else {
-        document.getElementById('reviewExp').textContent = `${val('yearsExp')} Yrs Exp`;
-        document.getElementById('reviewStatLabel').textContent = 'Placed';
-        document.getElementById('reviewStatVal').textContent = val('athletesPlaced') || '0';
+    // Safe setter helper — never throws
+    function setText(id, text) {
+        const el = document.getElementById(id);
+        if (el) el.textContent = text || '—';
     }
-    
-    document.getElementById('reviewWebsite').textContent = val('website') || 'No website provided';
-    
-    // Document
-    const docFile = document.getElementById('docUpload').files[0];
-    document.getElementById('reviewDocName').textContent = docFile ? docFile.name : 'No file';
-    document.getElementById('reviewDocType').textContent = val('document_type');
-    
-    // Socials
-    const socials = ['instagram', 'twitter', 'linkedin', 'facebook', 'youtube'];
+
+    // ── Profile photo ──────────────────────────────────────────
+    try {
+        const previewImg = document.getElementById('profilePreviewImg');
+        const reviewImg  = document.getElementById('reviewProfileImg');
+        if (reviewImg && previewImg && previewImg.src && !previewImg.classList.contains('hidden')) {
+            reviewImg.src = previewImg.src;
+        }
+    } catch (e) { /* ignore photo errors */ }
+
+    // ── Role badge ─────────────────────────────────────────────
+    setText('reviewRole', selectedRole.toUpperCase());
+
+    // ── Location & Phone ───────────────────────────────────────
+    const city    = val('city');
+    const country = val('country');
+    setText('reviewLocation', [city, country].filter(Boolean).join(', ') || '—');
+    setText('reviewPhone', val('phone'));
+
+    // ── Organisation ───────────────────────────────────────────
+    const orgName = selectedRole === 'club' ? val('orgNameClub') : val('orgNameRec');
+    setText('reviewOrgName', orgName);
+
+    if (selectedRole === 'club') {
+        const yearEst    = val('yearEst');
+        const playerCnt  = val('playerCount');
+        setText('reviewExp',       yearEst    ? `Est. ${yearEst}`    : '—');
+        setText('reviewStatLabel', 'Members');
+        setText('reviewStatVal',   playerCnt  || '0');
+    } else {
+        const yearsExp      = val('yearsExp');
+        const athletesPlaced = val('athletesPlaced');
+        setText('reviewExp',       yearsExp       ? `${yearsExp} Yrs Exp` : '—');
+        setText('reviewStatLabel', 'Placed');
+        setText('reviewStatVal',   athletesPlaced || '0');
+    }
+
+    const website = val('website');
+    setText('reviewWebsite', website || 'No website provided');
+
+    // ── Document ───────────────────────────────────────────────
+    const docFile = document.getElementById('docUpload')?.files?.[0];
+    setText('reviewDocName', docFile ? docFile.name : 'No file selected');
+    setText('reviewDocType', val('document_type') || 'Not selected');
+
+    // ── Social profiles ────────────────────────────────────────
+    const socialMap = {
+        instagram: 'badgeInsta',
+        twitter:   'badgeTwitter',
+        linkedin:  'badgeLinkedIn',
+        facebook:  'badgeFB',
+        youtube:   'badgeYT',
+    };
+
     let hasSocials = false;
-    document.getElementById('noSocials').classList.add('hidden');
-    
-    socials.forEach(s => {
-        const value = val(s);
-        const badge = document.getElementById(`badge${capitalize(s)}`);
-        if (value) {
-            badge.classList.remove('hidden');
-            hasSocials = true;
-        } else {
-            badge.classList.add('hidden');
+    const noSocialsEl = document.getElementById('noSocials');
+
+    Object.entries(socialMap).forEach(([inputId, badgeId]) => {
+        const value  = val(inputId);
+        const badge  = document.getElementById(badgeId);
+        if (badge) {
+            if (value) {
+                badge.classList.remove('hidden');
+                hasSocials = true;
+            } else {
+                badge.classList.add('hidden');
+            }
         }
     });
-    
-    if (!hasSocials) document.getElementById('noSocials').classList.remove('hidden');
+
+    if (noSocialsEl) {
+        noSocialsEl.classList.toggle('hidden', hasSocials);
+    }
 }
 
 function capitalize(s) {
@@ -289,14 +324,33 @@ document.getElementById('applyMultiStepForm').addEventListener('submit', async f
         formData.set('organisation_name', val('orgNameRec'));
     }
     
+    // ── Attach CSRF token from meta tag ──────────────────────
+    const csrfMeta = document.querySelector('meta[name="csrf-token"]');
+    if (csrfMeta) {
+        formData.set('csrf_token', csrfMeta.content);
+    }
+
     try {
-        const response = await fetch('../api/role_application.php?action=submit', {
+        const basePath = window.AthleteHubBaseUrl || '';
+        const response = await fetch(`${basePath}/api/role_application.php?action=submit`, {
             method: 'POST',
             body: formData
         });
-        
+
+        // ── Surface HTTP-level errors before trying to parse JSON ──
+        if (!response.ok) {
+            const text = await response.text();
+            console.error('Server error response:', text);
+            const msg = response.status === 403
+                ? 'Session expired. Please refresh the page and try again.'
+                : `Server error (${response.status}). Please try again.`;
+            if (window.showToast) showToast(msg, 'error');
+            else alert(msg);
+            return;
+        }
+
         const result = await response.json();
-        
+
         if (result.success) {
             // Show Success Card
             document.getElementById('mainFormContainer').classList.add('hidden');
@@ -304,17 +358,16 @@ document.getElementById('applyMultiStepForm').addEventListener('submit', async f
             const successCard = document.getElementById('successCard');
             successCard.classList.remove('hidden');
             window.scrollTo({ top: successCard.offsetTop - 150, behavior: 'smooth' });
-            
+
             if (window.showToast) showToast('Application submitted successfully!', 'success');
         } else {
-            if (window.showToast) showToast(result.error || 'Submission failed', 'error');
+            if (window.showToast) showToast(result.error || 'Submission failed. Please check all fields.', 'error');
             else alert(result.error || 'Submission failed');
-            btn.innerHTML = origHtml;
-            btn.disabled = false;
         }
     } catch (error) {
         console.error('Submission error:', error);
-        if (window.showToast) showToast('A network error occurred. Please try again.', 'error');
+        if (window.showToast) showToast('A network error occurred. Please check your connection and try again.', 'error');
+    } finally {
         btn.innerHTML = origHtml;
         btn.disabled = false;
     }

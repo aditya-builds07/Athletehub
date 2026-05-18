@@ -19,7 +19,7 @@ if (isset($pdo)) {
 $menuItems = [
     ['page' => 'dashboard',         'icon' => 'dashboard',           'label' => 'Dashboard'],
     ['page' => 'users',             'icon' => 'group',               'label' => 'Users'],
-    ['page' => 'role_applications', 'icon' => 'assignment',          'label' => 'Role Applications', 'badge' => $pendingCount],
+    ['page' => 'role_requests',     'icon' => 'assignment_ind',       'label' => 'Role Requests',     'badge' => $pendingCount],
     ['page' => 'recruitment',       'icon' => 'work',                'label' => 'Recruitment Posts'],
     ['page' => 'tournaments',       'icon' => 'emoji_events',        'label' => 'Tournaments'],
     ['page' => 'livestreams',       'icon' => 'sensors',             'label' => 'Live Streams'],

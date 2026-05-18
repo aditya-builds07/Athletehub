@@ -3,7 +3,6 @@
  * AthleteHub Admin — Users Management Page
  */
 require_once __DIR__ . '/../includes/auth_check.php';
-require_once __DIR__ . '/../includes/db.php';
 
 $pageTitle   = 'Users Management';
 $currentPage = 'users';
@@ -36,7 +35,7 @@ $users = $stmt->fetchAll();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $pageTitle; ?> — AthleteHub Admin</title>
+    <title><?php echo e($pageTitle); ?> — AthleteHub Admin</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -54,7 +53,7 @@ $users = $stmt->fetchAll();
             <div class="toolbar">
                 <div class="search-box" style="min-width:280px;">
                     <span class="material-icons-round">search</span>
-                    <input type="text" id="userSearch" placeholder="Search by name or email..." value="<?php echo htmlspecialchars($search); ?>">
+                    <input type="text" id="userSearch" placeholder="Search by name or email..." value="<?php echo e($search); ?>">
                 </div>
 
                 <select class="select-styled" id="roleFilter">
@@ -80,11 +79,11 @@ $users = $stmt->fetchAll();
                     </thead>
                     <tbody id="usersBody">
                         <?php foreach ($users as $u): ?>
-                        <tr data-id="<?php echo $u['id']; ?>">
-                            <td>#<?php echo $u['id']; ?></td>
-                            <td><?php echo htmlspecialchars($u['name']); ?></td>
-                            <td><?php echo htmlspecialchars($u['email']); ?></td>
-                            <td><span class="badge badge-<?php echo $u['role']; ?>"><?php echo $u['role']; ?></span></td>
+                        <tr data-id="<?php echo e($u['id']); ?>">
+                            <td>#<?php echo e($u['id']); ?></td>
+                            <td><?php echo e($u['name']); ?></td>
+                            <td><?php echo e($u['email']); ?></td>
+                            <td><span class="badge badge-<?php echo e($u['role']); ?>"><?php echo e($u['role']); ?></span></td>
                             <td>
                                 <?php if ($u['is_verified']): ?>
                                     <span class="material-icons-round verified-icon">verified</span>
@@ -102,22 +101,22 @@ $users = $stmt->fetchAll();
                             <td><?php echo date('M d, Y', strtotime($u['created_at'])); ?></td>
                             <td>
                                 <div class="action-btns">
-                                    <button class="btn btn-outline btn-sm" onclick="viewUser(<?php echo $u['id']; ?>)" title="View">
+                                    <button class="btn btn-outline btn-sm" onclick="viewUser(<?php echo e($u['id']); ?>)" title="View">
                                         <span class="material-icons-round">visibility</span>
                                     </button>
-                                    <button class="btn btn-outline btn-sm" onclick="openRoleModal(<?php echo $u['id']; ?>, '<?php echo $u['role']; ?>')" title="Change Role">
+                                    <button class="btn btn-outline btn-sm" onclick="openRoleModal(<?php echo e($u['id']); ?>, '<?php echo e($u['role']); ?>')" title="Change Role">
                                         <span class="material-icons-round">swap_horiz</span>
                                     </button>
                                     <?php if (!$u['suspended']): ?>
-                                    <button class="btn btn-warning btn-sm" onclick="suspendUser(<?php echo $u['id']; ?>, 1)" title="Suspend">
+                                    <button class="btn btn-warning btn-sm" onclick="suspendUser(<?php echo e($u['id']); ?>, 1, this)" title="Suspend">
                                         <span class="material-icons-round">block</span>
                                     </button>
                                     <?php else: ?>
-                                    <button class="btn btn-success btn-sm" onclick="suspendUser(<?php echo $u['id']; ?>, 0)" title="Unsuspend">
+                                    <button class="btn btn-success btn-sm" onclick="suspendUser(<?php echo e($u['id']); ?>, 0, this)" title="Unsuspend">
                                         <span class="material-icons-round">check_circle</span>
                                     </button>
                                     <?php endif; ?>
-                                    <button class="btn btn-danger btn-sm" onclick="deleteUser(<?php echo $u['id']; ?>)" title="Delete">
+                                    <button class="btn btn-danger btn-sm" onclick="deleteUser(<?php echo e($u['id']); ?>, this)" title="Delete">
                                         <span class="material-icons-round">delete</span>
                                     </button>
                                 </div>
@@ -165,7 +164,7 @@ $users = $stmt->fetchAll();
         </div>
         <div class="modal-footer">
             <button class="btn btn-outline" onclick="closeModal('roleModal')">Cancel</button>
-            <button class="btn btn-primary" onclick="saveRole()">Save Role</button>
+            <button class="btn btn-primary" onclick="saveRole(this)">Save Role</button>
         </div>
     </div>
 </div>
@@ -175,6 +174,7 @@ $users = $stmt->fetchAll();
 
 <script>
 const API = '<?php echo BASE_URL; ?>/api/users.php';
+const CSRF = '<?php echo $_SESSION['csrf_token']; ?>';
 
 // ── Live Search ──
 let searchTimer;
@@ -201,26 +201,31 @@ async function viewUser(id) {
     const fd = new FormData();
     fd.append('action', 'view');
     fd.append('user_id', id);
+    fd.append('csrf_token', CSRF);
 
-    const res = await fetch(API, { method: 'POST', body: fd });
-    const data = await res.json();
+    try {
+        const res = await fetch(API, { method: 'POST', body: fd });
+        const data = await res.json();
 
-    if (data.success) {
-        const u = data.user;
-        body.innerHTML = `
-            <div class="detail-row"><div class="detail-label">ID</div><div class="detail-value">#${u.id}</div></div>
-            <div class="detail-row"><div class="detail-label">Name</div><div class="detail-value">${esc(u.name)}</div></div>
-            <div class="detail-row"><div class="detail-label">Email</div><div class="detail-value">${esc(u.email)}</div></div>
-            <div class="detail-row"><div class="detail-label">Role</div><div class="detail-value"><span class="badge badge-${u.role}">${u.role}</span></div></div>
-            <div class="detail-row"><div class="detail-label">Sport</div><div class="detail-value">${esc(u.sport || '—')}</div></div>
-            <div class="detail-row"><div class="detail-label">Location</div><div class="detail-value">${esc(u.location || '—')}</div></div>
-            <div class="detail-row"><div class="detail-label">Bio</div><div class="detail-value">${esc(u.bio || '—')}</div></div>
-            <div class="detail-row"><div class="detail-label">Verified</div><div class="detail-value">${u.is_verified ? '✅ Yes' : '❌ No'}</div></div>
-            <div class="detail-row"><div class="detail-label">Followers</div><div class="detail-value">${u.followers_count}</div></div>
-            <div class="detail-row"><div class="detail-label">Following</div><div class="detail-value">${u.following_count}</div></div>
-            <div class="detail-row"><div class="detail-label">Joined</div><div class="detail-value">${u.created_at}</div></div>`;
-    } else {
-        body.innerHTML = '<p style="color:var(--red)">User not found.</p>';
+        if (data.success) {
+            const u = data.user;
+            body.innerHTML = `
+                <div class="detail-row"><div class="detail-label">ID</div><div class="detail-value">#${esc(u.id)}</div></div>
+                <div class="detail-row"><div class="detail-label">Name</div><div class="detail-value">${esc(u.name)}</div></div>
+                <div class="detail-row"><div class="detail-label">Email</div><div class="detail-value">${esc(u.email)}</div></div>
+                <div class="detail-row"><div class="detail-label">Role</div><div class="detail-value"><span class="badge badge-${esc(u.role)}">${esc(u.role)}</span></div></div>
+                <div class="detail-row"><div class="detail-label">Sport</div><div class="detail-value">${esc(u.sport || '—')}</div></div>
+                <div class="detail-row"><div class="detail-label">Location</div><div class="detail-value">${esc(u.location || '—')}</div></div>
+                <div class="detail-row"><div class="detail-label">Bio</div><div class="detail-value">${esc(u.bio || '—')}</div></div>
+                <div class="detail-row"><div class="detail-label">Verified</div><div class="detail-value">${u.is_verified ? '✅ Yes' : '❌ No'}</div></div>
+                <div class="detail-row"><div class="detail-label">Followers</div><div class="detail-value">${esc(u.followers_count)}</div></div>
+                <div class="detail-row"><div class="detail-label">Following</div><div class="detail-value">${esc(u.following_count)}</div></div>
+                <div class="detail-row"><div class="detail-label">Joined</div><div class="detail-value">${esc(u.created_at)}</div></div>`;
+        } else {
+            body.innerHTML = `<p style="color:var(--red)">${esc(data.message || 'User not found.')}</p>`;
+        }
+    } catch (e) {
+        body.innerHTML = '<p style="color:var(--red)">A server error occurred.</p>';
     }
 }
 
@@ -231,48 +236,77 @@ function openRoleModal(id, currentRole) {
     openModal('roleModal');
 }
 
-async function saveRole() {
+async function saveRole(btn) {
+    btn.disabled = true;
     const fd = new FormData();
     fd.append('action', 'change_role');
     fd.append('user_id', document.getElementById('roleUserId').value);
     fd.append('new_role', document.getElementById('newRoleSelect').value);
+    fd.append('csrf_token', CSRF);
 
-    const res  = await fetch(API, { method: 'POST', body: fd });
-    const data = await res.json();
-    showToast(data.message, data.success ? 'success' : 'error');
-    if (data.success) setTimeout(() => location.reload(), 800);
-    closeModal('roleModal');
+    try {
+        const res  = await fetch(API, { method: 'POST', body: fd });
+        const data = await res.json();
+        showToast(data.message || (data.success ? 'Success' : 'Error'), data.success ? 'success' : 'error');
+        if (data.success) setTimeout(() => location.reload(), 800);
+    } catch (e) {
+        showToast('A server error occurred', 'error');
+    } finally {
+        btn.disabled = false;
+        closeModal('roleModal');
+    }
 }
 
 // ── Suspend ──
-async function suspendUser(id, value) {
+async function suspendUser(id, value, btn) {
     if (!confirm(value ? 'Suspend this user?' : 'Unsuspend this user?')) return;
+    btn.disabled = true;
     const fd = new FormData();
     fd.append('action', 'suspend');
     fd.append('user_id', id);
     fd.append('value', value);
+    fd.append('csrf_token', CSRF);
 
-    const res  = await fetch(API, { method: 'POST', body: fd });
-    const data = await res.json();
-    showToast(data.message, data.success ? 'success' : 'error');
-    if (data.success) setTimeout(() => location.reload(), 800);
+    try {
+        const res  = await fetch(API, { method: 'POST', body: fd });
+        const data = await res.json();
+        showToast(data.message || (data.success ? 'Success' : 'Error'), data.success ? 'success' : 'error');
+        if (data.success) setTimeout(() => location.reload(), 800);
+        else btn.disabled = false;
+    } catch (e) {
+        showToast('A server error occurred', 'error');
+        btn.disabled = false;
+    }
 }
 
 // ── Delete ──
-async function deleteUser(id) {
+async function deleteUser(id, btn) {
     if (!confirm('Are you sure you want to DELETE this user? This cannot be undone.')) return;
+    btn.disabled = true;
     const fd = new FormData();
     fd.append('action', 'delete');
     fd.append('user_id', id);
+    fd.append('csrf_token', CSRF);
 
-    const res  = await fetch(API, { method: 'POST', body: fd });
-    const data = await res.json();
-    showToast(data.message, data.success ? 'success' : 'error');
-    if (data.success) setTimeout(() => location.reload(), 800);
+    try {
+        const res  = await fetch(API, { method: 'POST', body: fd });
+        const data = await res.json();
+        showToast(data.message || (data.success ? 'Success' : 'Error'), data.success ? 'success' : 'error');
+        if (data.success) setTimeout(() => location.reload(), 800);
+        else btn.disabled = false;
+    } catch (e) {
+        showToast('A server error occurred', 'error');
+        btn.disabled = false;
+    }
 }
 
 // ── Helpers ──
-function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+function esc(s) { 
+    if (!s) return '—';
+    const d = document.createElement('div'); 
+    d.textContent = String(s); 
+    return d.innerHTML; 
+}
 
 function openModal(id)  { document.getElementById(id).classList.add('active'); }
 function closeModal(id) { document.getElementById(id).classList.remove('active'); }
