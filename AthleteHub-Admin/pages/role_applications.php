@@ -1,7 +1,6 @@
 <?php
 /**
  * AthleteHub Admin — Role Applications Page
- * Lists all role upgrade applications with filters, search, and pagination.
  */
 require_once __DIR__ . '/../includes/auth_check.php';
 require_once __DIR__ . '/../includes/db.php';
@@ -9,85 +8,31 @@ require_once __DIR__ . '/../includes/db.php';
 $pageTitle   = 'Role Applications';
 $currentPage = 'role_applications';
 
-// ── Filters ──
 $filter = $_GET['status'] ?? 'all';
-$roleFilter = $_GET['role'] ?? 'all';
-$search = trim($_GET['q'] ?? '');
-$page   = max(1, (int)($_GET['page'] ?? 1));
-$limit  = 15;
-$offset = ($page - 1) * $limit;
 
-// Whitelist filters
-$allowed_status = ['all', 'pending', 'approved', 'rejected'];
-$allowed_roles  = ['all', 'club', 'recruiter'];
-if (!in_array($filter, $allowed_status, true)) $filter = 'all';
-if (!in_array($roleFilter, $allowed_roles, true)) $roleFilter = 'all';
+$sql = "SELECT ra.*, u.name AS applicant_name, u.email AS applicant_email, u.profile_pic,
+               r.name AS reviewer_name
+        FROM role_applications ra
+        JOIN users u ON ra.user_id = u.id
+        LEFT JOIN users r ON ra.reviewed_by = r.id";
 
-// ── Build dynamic query ──
-$where  = ['1=1'];
 $params = [];
-
 if ($filter !== 'all') {
-    $where[] = 'ra.status = ?';
+    $sql .= " WHERE ra.status = ?";
     $params[] = $filter;
 }
-if ($roleFilter !== 'all') {
-    $where[] = 'ra.requested_role = ?';
-    $params[] = $roleFilter;
-}
-if ($search !== '') {
-    $where[] = '(u.name LIKE ? OR ra.organisation_name LIKE ?)';
-    $params[] = "%$search%";
-    $params[] = "%$search%";
-}
+$sql .= " ORDER BY ra.created_at DESC";
 
-$whereSql = implode(' AND ', $where);
-
-// Fetch applications
-$stmt = $pdo->prepare("
-    SELECT ra.*, u.name AS applicant_name, u.email AS applicant_email, u.profile_pic
-    FROM role_applications ra
-    JOIN users u ON ra.user_id = u.id
-    WHERE $whereSql
-    ORDER BY ra.created_at DESC
-    LIMIT ? OFFSET ?
-");
-$paramIndex = 1;
-foreach ($params as $val) {
-    $stmt->bindValue($paramIndex++, $val, PDO::PARAM_STR);
-}
-$stmt->bindValue($paramIndex++, $limit, PDO::PARAM_INT);
-$stmt->bindValue($paramIndex, $offset, PDO::PARAM_INT);
-$stmt->execute();
+$stmt = $pdo->prepare($sql);
+$stmt->execute($params);
 $applications = $stmt->fetchAll();
 
-// Total count for pagination
-$countStmt = $pdo->prepare("
-    SELECT COUNT(*) FROM role_applications ra
-    JOIN users u ON ra.user_id = u.id
-    WHERE $whereSql
-");
-$countStmt->execute($params);
-$total = (int)$countStmt->fetchColumn();
-$totalPages = max(1, ceil($total / $limit));
-
-// Stats bar counts
+// Counts for tabs
 $counts = ['all' => 0, 'pending' => 0, 'approved' => 0, 'rejected' => 0];
 $cStmt = $pdo->query("SELECT status, COUNT(*) as cnt FROM role_applications GROUP BY status");
 while ($row = $cStmt->fetch()) {
-    $counts[$row['status']] = (int)$row['cnt'];
-    $counts['all'] += (int)$row['cnt'];
-}
-
-// Helper for time ago
-function timeAgo($datetime) {
-    $time = strtotime($datetime);
-    $diff = time() - $time;
-    if ($diff < 60) return 'Just now';
-    if ($diff < 3600) return floor($diff / 60) . 'm ago';
-    if ($diff < 86400) return floor($diff / 3600) . 'h ago';
-    if ($diff < 604800) return floor($diff / 86400) . 'd ago';
-    return date('M d, Y', $time);
+    $counts[$row['status']] = $row['cnt'];
+    $counts['all'] += $row['cnt'];
 }
 ?>
 <!DOCTYPE html>
@@ -95,13 +40,12 @@ function timeAgo($datetime) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo htmlspecialchars($pageTitle); ?> — AthleteHub Admin</title>
+    <title><?php echo $pageTitle; ?> — AthleteHub Admin</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/admin.css">
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/role_requests.css">
 </head>
 <body>
 <div class="admin-layout">
@@ -110,183 +54,159 @@ function timeAgo($datetime) {
         <?php include __DIR__ . '/../includes/header.php'; ?>
         <div class="admin-content">
 
-            <!-- Stats Bar -->
-            <div class="stats-bar">
-                <div class="stat-card">
-                    <span class="material-icons-round" style="color: var(--primary, #6366f1)">assignment</span>
-                    <div class="stat-info">
-                        <div class="stat-number"><?php echo $counts['all']; ?></div>
-                        <div class="stat-label">Total</div>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <span class="material-icons-round" style="color: #eab308">hourglass_empty</span>
-                    <div class="stat-info">
-                        <div class="stat-number"><?php echo $counts['pending']; ?></div>
-                        <div class="stat-label">Pending</div>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <span class="material-icons-round" style="color: #22c55e">check_circle</span>
-                    <div class="stat-info">
-                        <div class="stat-number"><?php echo $counts['approved']; ?></div>
-                        <div class="stat-label">Approved</div>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <span class="material-icons-round" style="color: #ef4444">cancel</span>
-                    <div class="stat-info">
-                        <div class="stat-number"><?php echo $counts['rejected']; ?></div>
-                        <div class="stat-label">Rejected</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Controls Row -->
-            <div class="controls-row">
-                <!-- Search -->
-                <form method="GET" class="search-form">
-                    <?php if ($filter !== 'all'): ?>
-                        <input type="hidden" name="status" value="<?php echo htmlspecialchars($filter); ?>">
-                    <?php endif; ?>
-                    <?php if ($roleFilter !== 'all'): ?>
-                        <input type="hidden" name="role" value="<?php echo htmlspecialchars($roleFilter); ?>">
-                    <?php endif; ?>
-                    <span class="material-icons-round search-icon">search</span>
-                    <input type="text" name="q" class="form-control search-input"
-                           placeholder="Search by name or organisation..."
-                           value="<?php echo htmlspecialchars($search); ?>">
-                </form>
-
-                <!-- Role Filter -->
-                <div class="role-filter">
-                    <?php
-                    $roleLabels = ['all' => 'All Roles', 'club' => 'Club', 'recruiter' => 'Recruiter'];
-                    foreach ($roleLabels as $rv => $rl):
-                        $params_str = http_build_query(array_filter([
-                            'status' => $filter !== 'all' ? $filter : null,
-                            'role' => $rv !== 'all' ? $rv : null,
-                            'q' => $search ?: null
-                        ]));
-                    ?>
-                        <a href="?<?php echo $params_str; ?>"
-                           class="role-pill <?php echo $roleFilter === $rv ? 'active' : ''; ?>">
-                            <?php echo $rl; ?>
-                        </a>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-
-            <!-- Status Filter Tabs -->
+            <!-- Filter Tabs -->
             <div class="filter-tabs">
-                <?php foreach (['all', 'pending', 'approved', 'rejected'] as $tab):
-                    $params_str = http_build_query(array_filter([
-                        'status' => $tab !== 'all' ? $tab : null,
-                        'role' => $roleFilter !== 'all' ? $roleFilter : null,
-                        'q' => $search ?: null
-                    ]));
-                ?>
-                    <a href="?<?php echo $params_str; ?>"
-                       class="filter-tab <?php echo $filter === $tab ? 'active' : ''; ?>">
+                <?php foreach (['all','pending','approved','rejected'] as $tab): ?>
+                    <a href="?status=<?php echo $tab; ?>"
+                       class="filter-tab <?php echo $filter===$tab?'active':''; ?>">
                         <?php echo ucfirst($tab); ?> (<?php echo $counts[$tab]; ?>)
                     </a>
                 <?php endforeach; ?>
             </div>
 
-            <!-- Applications Table -->
             <div class="card">
                 <table class="data-table">
                     <thead>
                         <tr>
-                            <th>Applicant</th>
-                            <th>Requested Role</th>
-                            <th>Organisation</th>
-                            <th>Submitted</th>
-                            <th>Status</th>
-                            <th>Actions</th>
+                            <th>Applicant</th><th>Requested Role</th><th>Organisation</th>
+                            <th>Submitted</th><th>Status</th><th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                     <?php if (empty($applications)): ?>
-                        <tr>
-                            <td colspan="6">
-                                <div class="empty-state">
-                                    <span class="material-icons-round">inbox</span>
-                                    <p>No applications found matching your filters.</p>
-                                    <a href="<?php echo BASE_URL; ?>/pages/role_applications.php" class="btn btn-outline btn-sm" style="margin-top: .5rem;">Clear Filters</a>
-                                </div>
-                            </td>
-                        </tr>
+                        <tr><td colspan="6"><div class="empty-state"><span class="material-icons-round">inbox</span><p>No applications found.</p></div></td></tr>
                     <?php endif; ?>
-                    <?php foreach ($applications as $a):
-                        // Generate initials
-                        $parts = explode(' ', $a['applicant_name']);
-                        $initials = strtoupper(substr($parts[0], 0, 1));
-                        if (isset($parts[1])) $initials .= strtoupper(substr($parts[1], 0, 1));
-
-                        // Initials color
-                        $colors = ['#6366f1', '#8b5cf6', '#06b6d4', '#10b981', '#f59e0b', '#ef4444', '#ec4899'];
-                        $ci = array_sum(array_map('ord', str_split($a['applicant_name']))) % count($colors);
-                    ?>
+                    <?php foreach ($applications as $a): ?>
                         <tr>
                             <td>
                                 <div class="user-cell">
-                                    <div class="mini-avatar" style="background: <?php echo $colors[$ci]; ?>">
-                                        <?php echo $initials; ?>
-                                    </div>
+                                    <div class="mini-avatar"><?php echo strtoupper(substr($a['applicant_name'],0,1)); ?></div>
                                     <div>
                                         <div style="font-weight:600"><?php echo htmlspecialchars($a['applicant_name']); ?></div>
                                         <div style="font-size:.75rem;color:var(--text-muted)"><?php echo htmlspecialchars($a['applicant_email']); ?></div>
                                     </div>
                                 </div>
                             </td>
-                            <td><span class="badge badge-<?php echo htmlspecialchars($a['requested_role']); ?>"><?php echo ucfirst(htmlspecialchars($a['requested_role'])); ?></span></td>
+                            <td><span class="badge badge-<?php echo $a['requested_role']; ?>"><?php echo $a['requested_role']; ?></span></td>
                             <td><?php echo htmlspecialchars($a['organisation_name']); ?></td>
-                            <td title="<?php echo date('M d, Y H:i', strtotime($a['created_at'])); ?>"><?php echo timeAgo($a['created_at']); ?></td>
-                            <td><span class="badge badge-<?php echo htmlspecialchars($a['status']); ?>"><?php echo ucfirst(htmlspecialchars($a['status'])); ?></span></td>
+                            <td><?php echo date('M d, Y', strtotime($a['created_at'])); ?></td>
+                            <td><span class="badge badge-<?php echo $a['status']; ?>"><?php echo $a['status']; ?></span></td>
                             <td>
-                                <a href="<?php echo BASE_URL; ?>/pages/role_request_detail.php?id=<?php echo (int)$a['id']; ?>"
-                                   class="btn btn-outline btn-sm">
+                                <button class="btn btn-outline btn-sm" onclick='reviewApp(<?php echo json_encode($a); ?>)'>
                                     <span class="material-icons-round">rate_review</span> Review
-                                </a>
+                                </button>
                             </td>
                         </tr>
                     <?php endforeach; ?>
                     </tbody>
                 </table>
             </div>
-
-            <!-- Pagination -->
-            <?php if ($totalPages > 1): ?>
-            <div class="pagination">
-                <?php
-                $baseParams = array_filter([
-                    'status' => $filter !== 'all' ? $filter : null,
-                    'role' => $roleFilter !== 'all' ? $roleFilter : null,
-                    'q' => $search ?: null
-                ]);
-                ?>
-                <?php if ($page > 1): ?>
-                    <a href="?<?php echo http_build_query(array_merge($baseParams, ['page' => $page - 1])); ?>" class="pagination-btn">&laquo; Prev</a>
-                <?php endif; ?>
-
-                <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                    <a href="?<?php echo http_build_query(array_merge($baseParams, ['page' => $i])); ?>"
-                       class="pagination-btn <?php echo $i === $page ? 'active' : ''; ?>">
-                        <?php echo $i; ?>
-                    </a>
-                <?php endfor; ?>
-
-                <?php if ($page < $totalPages): ?>
-                    <a href="?<?php echo http_build_query(array_merge($baseParams, ['page' => $page + 1])); ?>" class="pagination-btn">Next &raquo;</a>
-                <?php endif; ?>
-            </div>
-            <?php endif; ?>
-
         </div>
     </div>
 </div>
 
+<!-- Review Modal -->
+<div class="modal-overlay" id="reviewModal">
+    <div class="modal" style="max-width:650px;">
+        <div class="modal-header">
+            <h3>Review Application</h3>
+            <button class="modal-close" onclick="closeModal('reviewModal')">&times;</button>
+        </div>
+        <div class="modal-body" id="reviewBody"></div>
+        <div class="modal-footer" id="reviewFooter"></div>
+    </div>
+</div>
+
 <div class="toast-container" id="toastContainer"></div>
+
+<script>
+const API = '<?php echo BASE_URL; ?>/api/role_applications.php';
+
+function reviewApp(app) {
+    const body = document.getElementById('reviewBody');
+    const footer = document.getElementById('reviewFooter');
+
+    let docPreview = '';
+    if (app.document_path) {
+        const ext = app.document_path.split('.').pop().toLowerCase();
+        const docUrl = '/dashboard/AthleteHub V1.3/' + app.document_path;
+        if (['jpg','jpeg','png','gif','webp'].includes(ext)) {
+            docPreview = `<div style="margin-top:.5rem"><img src="${docUrl}" style="max-width:100%;border-radius:8px;border:1px solid var(--border-color)"></div>`;
+        } else {
+            docPreview = `<div style="margin-top:.5rem"><a href="${docUrl}" target="_blank" class="btn btn-outline btn-sm"><span class="material-icons-round">download</span> Download Document</a></div>`;
+        }
+    }
+
+    body.innerHTML = `
+        <div class="detail-row"><div class="detail-label">Applicant</div><div class="detail-value">${esc(app.applicant_name)}</div></div>
+        <div class="detail-row"><div class="detail-label">Email</div><div class="detail-value">${esc(app.applicant_email)}</div></div>
+        <div class="detail-row"><div class="detail-label">Requested Role</div><div class="detail-value"><span class="badge badge-${app.requested_role}">${app.requested_role}</span></div></div>
+        <div class="detail-row"><div class="detail-label">Organisation</div><div class="detail-value">${esc(app.organisation_name)}</div></div>
+        <div class="detail-row"><div class="detail-label">Description</div><div class="detail-value">${esc(app.description)}</div></div>
+        <div class="detail-row"><div class="detail-label">Website</div><div class="detail-value">${app.website ? `<a href="${esc(app.website)}" target="_blank">${esc(app.website)}</a>` : '—'}</div></div>
+        <div class="detail-row"><div class="detail-label">Phone</div><div class="detail-value">${esc(app.phone)}</div></div>
+        <div class="detail-row"><div class="detail-label">Document</div><div class="detail-value">${esc(app.document_type || '—')}${docPreview}</div></div>
+        <div class="detail-row"><div class="detail-label">Status</div><div class="detail-value"><span class="badge badge-${app.status}">${app.status}</span></div></div>
+        ${app.admin_note ? `<div class="detail-row"><div class="detail-label">Admin Note</div><div class="detail-value">${esc(app.admin_note)}</div></div>` : ''}
+        ${app.status === 'pending' ? `
+        <div class="form-group" style="margin-top:1rem">
+            <label>Admin Note (required for rejection)</label>
+            <textarea class="form-control" id="adminNote" placeholder="Enter note..."></textarea>
+        </div>` : ''}
+    `;
+
+    if (app.status === 'pending') {
+        footer.innerHTML = `
+            <button class="btn btn-outline" onclick="closeModal('reviewModal')">Cancel</button>
+            <button class="btn btn-danger" onclick="rejectApp(${app.id})"><span class="material-icons-round">close</span> Reject</button>
+            <button class="btn btn-success" onclick="approveApp(${app.id})"><span class="material-icons-round">check</span> Approve</button>
+        `;
+    } else {
+        footer.innerHTML = `<button class="btn btn-outline" onclick="closeModal('reviewModal')">Close</button>`;
+    }
+
+    openModal('reviewModal');
+}
+
+async function approveApp(id) {
+    if (!confirm('Approve this application? The user role will be upgraded.')) return;
+    const fd = new FormData();
+    fd.append('action', 'approve');
+    fd.append('app_id', id);
+    const res = await fetch(API, { method: 'POST', body: fd });
+    const data = await res.json();
+    showToast(data.message, data.success ? 'success' : 'error');
+    if (data.success) setTimeout(() => location.reload(), 800);
+}
+
+async function rejectApp(id) {
+    const note = document.getElementById('adminNote').value.trim();
+    if (!note) { showToast('Admin note is required for rejection', 'error'); return; }
+
+    const fd = new FormData();
+    fd.append('action', 'reject');
+    fd.append('app_id', id);
+    fd.append('admin_note', note);
+    const res = await fetch(API, { method: 'POST', body: fd });
+    const data = await res.json();
+    showToast(data.message, data.success ? 'success' : 'error');
+    if (data.success) setTimeout(() => location.reload(), 800);
+}
+
+function esc(s) { if (!s) return ''; const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+function openModal(id)  { document.getElementById(id).classList.add('active'); }
+function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+function showToast(msg, type='success') {
+    const c = document.getElementById('toastContainer');
+    const t = document.createElement('div');
+    t.className = `toast toast-${type}`;
+    t.innerHTML = `<span class="material-icons-round">${type==='success'?'check_circle':'error'}</span>${esc(msg)}`;
+    c.appendChild(t);
+    setTimeout(() => t.remove(), 3500);
+}
+document.querySelectorAll('.modal-overlay').forEach(el => {
+    el.addEventListener('click', e => { if (e.target === el) el.classList.remove('active'); });
+});
+</script>
 </body>
 </html>
