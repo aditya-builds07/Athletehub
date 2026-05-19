@@ -162,14 +162,12 @@
 /* Global Search */
 .nav-search-wrapper {
   position: relative;
-  width: 40px;
-  height: 40px;
+  /* Automatically sizes to content (.search-input) */
 }
 
 .search-input {
-  position: absolute;
-  right: 0;
-  top: 0;
+  /* Removed absolute positioning */
+  display: block;
   width: 40px;
   height: 40px;
   border-radius: var(--radius-full);
@@ -183,10 +181,21 @@
   z-index: 10;
 }
 
-/* Base icon state perfectly matching bell */
+/* Hide placeholder when collapsed */
+.search-input::placeholder {
+  color: transparent !important;
+}
+
+/* Show placeholder when expanded */
+.search-input:focus::placeholder,
+.search-input:not(:placeholder-shown)::placeholder {
+  color: var(--text-light) !important;
+}
+
+/* Base icon state */
 .search-icon {
   position: absolute;
-  right: 9px;
+  left: 9px;
   top: 50%;
   transform: translateY(-50%);
   color: var(--text-muted);
@@ -216,11 +225,9 @@
   border: 1px solid rgba(255,255,255,0.7);
 }
 
-/* Slide icon to the left when expanded (anchored to right) */
+/* Icon stays on left, just changes color */
 .search-input:focus ~ .search-icon,
 .search-input:not(:placeholder-shown) ~ .search-icon {
-  right: 226px;
-  transform: translateY(-50%);
   color: var(--primary);
 }
 
