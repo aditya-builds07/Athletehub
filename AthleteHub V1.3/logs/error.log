@@ -101,3 +101,76 @@ Stack trace:
 #0 {main}
   thrown in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\api\follow.php on line 15
 [18-May-2026 13:06:51 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[18-May-2026 13:32:36 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[18-May-2026 13:32:39 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[18-May-2026 13:32:52 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[18-May-2026 13:32:58 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[18-May-2026 13:33:00 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[18-May-2026 13:33:18 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function validate_csrf_token() in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\api\livestream.php:14
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\api\livestream.php on line 14
+[18-May-2026 13:33:20 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function validate_csrf_token() in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\api\livestream.php:14
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\api\livestream.php on line 14
+[18-May-2026 13:33:20 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function validate_csrf_token() in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\api\livestream.php:14
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\api\livestream.php on line 14
+[18-May-2026 13:33:20 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function validate_csrf_token() in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\api\livestream.php:14
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\api\livestream.php on line 14
+[18-May-2026 13:34:19 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function validate_csrf_token() in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\api\livestream.php:14
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\api\livestream.php on line 14
+[18-May-2026 13:34:20 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function validate_csrf_token() in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\api\livestream.php:14
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\api\livestream.php on line 14
+[18-May-2026 13:34:20 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function validate_csrf_token() in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\api\livestream.php:14
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\api\livestream.php on line 14
+[18-May-2026 13:34:20 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function validate_csrf_token() in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\api\livestream.php:14
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\api\livestream.php on line 14
+[18-May-2026 13:34:20 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function validate_csrf_token() in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\api\livestream.php:14
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\api\livestream.php on line 14
+[18-May-2026 13:34:21 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function validate_csrf_token() in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\api\livestream.php:14
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\api\livestream.php on line 14
+[18-May-2026 13:34:21 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function validate_csrf_token() in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\api\livestream.php:14
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\api\livestream.php on line 14
+[18-May-2026 13:34:23 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[18-May-2026 13:34:28 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[18-May-2026 13:34:37 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[18-May-2026 13:34:38 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[18-May-2026 13:34:47 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[19-May-2026 08:23:13 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[19-May-2026 08:23:21 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[19-May-2026 08:23:24 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function validate_csrf_token() in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\api\follow.php:15
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\api\follow.php on line 15
+[19-May-2026 08:23:29 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[19-May-2026 08:23:32 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[19-May-2026 08:24:00 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[19-May-2026 08:24:52 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[19-May-2026 08:24:59 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[19-May-2026 08:25:02 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[19-May-2026 08:26:07 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[19-May-2026 08:26:25 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[19-May-2026 09:25:41 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[19-May-2026 09:27:59 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[19-May-2026 09:28:06 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[19-May-2026 09:31:25 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[19-May-2026 09:31:30 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\dashboard\Athletehub\AthleteHub V1.3\includes\header.php on line 2

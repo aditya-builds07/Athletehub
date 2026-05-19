@@ -7,7 +7,7 @@
 session_start();
 
 // Already logged in? Go to dashboard.
-if (isset($_SESSION['admin_id']) && $_SESSION['admin_role'] === 'admin') {
+if (isset($_SESSION['user_id']) && $_SESSION['role'] === 'admin') {
     header('Location: pages/dashboard.php');
     exit;
 }
@@ -28,11 +28,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $admin = $stmt->fetch();
 
         if ($admin && password_verify($password, $admin['password_hash'])) {
-            $_SESSION['admin_id']      = $admin['id'];
-            $_SESSION['admin_name']    = $admin['name'];
-            $_SESSION['admin_email']   = $admin['email'];
-            $_SESSION['admin_role']    = $admin['role'];
-            $_SESSION['admin_pic']     = $admin['profile_pic'];
+            $_SESSION['user_id']      = $admin['id'];
+            $_SESSION['user_name']    = $admin['name'];
+            $_SESSION['user_email']   = $admin['email'];
+            $_SESSION['role']         = $admin['role'];
+            $_SESSION['user_pic']     = $admin['profile_pic'];
             header('Location: pages/dashboard.php');
             exit;
         } else {

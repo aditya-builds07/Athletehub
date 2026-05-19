@@ -5,9 +5,9 @@
  * Expects: $pageTitle (string)
  */
 
-$adminName  = $_SESSION['admin_name']  ?? 'Admin';
-$adminEmail = $_SESSION['admin_email'] ?? '';
-$adminPic   = $_SESSION['admin_pic']   ?? '';
+$adminName  = $_SESSION['user_name']  ?? 'Admin';
+$adminEmail = $_SESSION['user_email'] ?? '';
+$adminPic   = $_SESSION['user_pic']   ?? '';
 
 $nameParts = explode(' ', $adminName);
 $initials  = strtoupper(substr($nameParts[0], 0, 1));

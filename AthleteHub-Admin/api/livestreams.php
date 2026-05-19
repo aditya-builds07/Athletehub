@@ -6,7 +6,7 @@ session_start();
 require_once __DIR__ . '/../includes/db.php';
 header('Content-Type: application/json');
 
-if (!isset($_SESSION['admin_id']) || $_SESSION['admin_role'] !== 'admin') {
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     echo json_encode(['success' => false, 'message' => 'Unauthorized']); exit;
 }
 

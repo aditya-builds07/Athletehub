@@ -6,7 +6,7 @@ session_start();
 require_once __DIR__ . '/../includes/db.php';
 header('Content-Type: application/json');
 
-if (!isset($_SESSION['admin_id']) || $_SESSION['admin_role'] !== 'admin') {
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
     echo json_encode(['success' => false, 'message' => 'Unauthorized']); exit;
 }
 
@@ -23,7 +23,7 @@ switch ($action) {
         }
 
         $stmt = $pdo->prepare("INSERT INTO news (title, content, image_url, posted_by) VALUES (?, ?, ?, ?)");
-        $stmt->execute([$title, $content, $imageUrl, $_SESSION['admin_id']]);
+        $stmt->execute([$title, $content, $imageUrl, $_SESSION['user_id']]);
         echo json_encode(['success'=>true,'message'=>'News article published']);
         break;
 
