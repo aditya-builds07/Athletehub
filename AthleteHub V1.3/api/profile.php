@@ -72,23 +72,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
 
                     // ── Security: Validate & re-process through GD to strip embedded code ──
-                    $srcImg = @imagecreatefromstring($dataDecode);
-                    if ($srcImg === false) {
-                        echo json_encode(['success' => false, 'message' => 'Invalid image data.']);
-                        exit;
-                    }
-
                     if (!is_dir('../uploads/profile_pics')) {
                         mkdir('../uploads/profile_pics', 0755, true);
                     }
-
-                    // Secure random filename to prevent prediction
                     $fileName = 'avatar_' . $userId . '_' . bin2hex(random_bytes(8)) . '.jpg';
                     $savePath = '../uploads/profile_pics/' . $fileName;
 
-                    // Always save as JPEG after GD re-processing (strips any embedded payloads)
-                    imagejpeg($srcImg, $savePath, 85);
-                    imagedestroy($srcImg);
+                    if (function_exists('imagecreatefromstring')) {
+                        $srcImg = @imagecreatefromstring($dataDecode);
+                        if ($srcImg === false) {
+                            echo json_encode(['success' => false, 'message' => 'Invalid image data.']);
+                            exit;
+                        }
+                        // Always save as JPEG after GD re-processing (strips any embedded payloads)
+                        imagejpeg($srcImg, $savePath, 85);
+                        imagedestroy($srcImg);
+                    } else {
+                        // Fallback if GD is not installed
+                        file_put_contents($savePath, $dataDecode);
+                    }
                     
                     $avatarQueryAddon = ", profile_pic = ?";
                     $queryParams[] = $fileName;

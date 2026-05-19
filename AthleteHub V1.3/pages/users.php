@@ -69,6 +69,6 @@ require_once '../includes/header.php';
     </div>
 </div>
 
-<script src="<?= ASSETS ?>/js/users.js" defer></script>
+<script src="<?= ASSETS ?>/js/users.js?v=<?= time() ?>" defer></script>
 
 <?php require_once '../includes/footer.php'; ?>

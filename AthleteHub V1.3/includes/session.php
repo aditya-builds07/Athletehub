@@ -26,6 +26,19 @@ function validate_csrf(): void {
     }
 }
 
+// CSRF token validation returning boolean
+function validate_csrf_token(): bool {
+    $token = $_POST['csrf_token'] ?? '';
+    if (empty($token)) {
+        $headers = function_exists('getallheaders') ? getallheaders() : [];
+        $token = $headers['X-CSRF-Token'] ?? $headers['X-Csrf-Token'] ?? '';
+    }
+    if (empty($token) && isset($_SERVER['HTTP_X_CSRF_TOKEN'])) {
+        $token = $_SERVER['HTTP_X_CSRF_TOKEN'];
+    }
+    return hash_equals($_SESSION['csrf_token'] ?? '', $token);
+}
+
 // Auth check helper
 function require_login(string $redirect = '/'): void {
     if (empty($_SESSION['user_id'])) {

@@ -189,13 +189,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 const targetId = e.target.dataset.id;
                 // Assuming api/follow.php exists as per standard
                 try {
-                    const form = new FormData();
-                    form.append('target_id', targetId);
-                    form.append('csrf_token', csrfToken);
-
                     const res = await fetch(`${BASE_URL}/api/follow.php`, {
                         method: 'POST',
-                        body: form
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ following_id: targetId })
                     });
                     
                     if (!res.ok) throw new Error('Network error');
@@ -206,7 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         e.target.classList.toggle('btn-outline', data.following);
                         e.target.classList.toggle('btn--primary', !data.following);
                     } else {
-                        alert(data.error || 'Failed to toggle follow');
+                        alert(data.error || data.message || 'Failed to toggle follow');
                     }
                 } catch (err) {
                     console.error('[Follow Error]', err);
