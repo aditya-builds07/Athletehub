@@ -91,8 +91,47 @@ $currentPage = basename($_SERVER['PHP_SELF'], '.php');
     <style>
         *, *::before, *::after { box-sizing: border-box; }
         a, button, .nav-link, .glass-input { transition: all 0.3s ease; }
+        
         @media (min-width: 768px) {
             .nav-inner { padding: 0 2rem; }
+            
+            /* Fix 1.2: Nav links (desktop only to not break mobile) */
+            .nav-links {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important; /* Center the links */
+                gap: 0.5rem !important;
+                flex: 1 !important;
+            }
+        }
+
+        /* Fix 1: overall layout */
+        .glass-nav .nav-inner {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            gap: 0 !important;
+        }
+
+        /* Fix 1.1: Logo section */
+        .nav-logo {
+            display: flex !important;
+            align-items: center !important;
+            gap: 0.5rem !important;
+            flex-shrink: 0 !important;
+            margin-right: 2rem !important;
+            min-width: fit-content !important;
+        }
+
+        /* Fix 3: Right side */
+        .nav-right {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: flex-end !important;
+            gap: 1rem !important;
+            flex-shrink: 0 !important;
+            margin-left: auto !important;
+            min-width: fit-content !important;
         }
     </style>
 
@@ -180,18 +219,6 @@ $currentPage = basename($_SERVER['PHP_SELF'], '.php');
         <!-- Right: Notifications + User Dropdown -->
         <div class="nav-right">
 
-            <!-- Global Search -->
-            <div class="nav-search-wrapper" id="globalSearchWrapper">
-                <input type="text" class="glass-input search-input" id="globalSearchInput" placeholder="Search..." autocomplete="off">
-                <span class="material-icons-round search-icon">search</span>
-                <div class="search-dropdown" id="searchDropdown">
-                    <div class="search-results-list" id="searchResultsList">
-                        <div class="search-empty" style="display:none; padding: 10px; color: var(--text-muted, #6b7280);">No results found.</div>
-                        <div class="search-error" style="display:none; padding: 10px; color: var(--red-500, #ef4444);">Error fetching results.</div>
-                    </div>
-                    <div class="search-loading" id="searchLoading" style="display: none; padding: 10px; color: var(--text-muted, #6b7280);">Searching...</div>
-                </div>
-            </div>
 
             <!-- Notification Bell -->
             <button class="nav-icon-btn" id="notifBell" aria-label="Notifications">

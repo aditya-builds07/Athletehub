@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 renderStreams(json.streams);
             }
         } catch (err) {
-            console.error('Failed to fetch streams', err);
+            showToast('Failed to load livestreams.', 'error');
         }
     };
 

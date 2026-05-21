@@ -210,7 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             
         } catch (error) {
-            console.error('Error fetching live news:', error);
+            showToast('Error fetching live news.', 'error');
             if (loadingIndicator) loadingIndicator.remove();
             if (liveNewsError) liveNewsError.style.display = 'inline';
         }

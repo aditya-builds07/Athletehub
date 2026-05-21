@@ -93,7 +93,8 @@ CREATE TABLE IF NOT EXISTS `messages` (
   `is_read`      TINYINT(1) NOT NULL DEFAULT 0,
   `created_at`   TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY (`sender_id`)   REFERENCES `users`(`id`) ON DELETE CASCADE,
-  FOREIGN KEY (`receiver_id`) REFERENCES `users`(`id`) ON DELETE CASCADE
+  FOREIGN KEY (`receiver_id`) REFERENCES `users`(`id`) ON DELETE CASCADE,
+  INDEX `idx_messages_is_read` (`is_read`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
@@ -111,7 +112,8 @@ CREATE TABLE IF NOT EXISTS `recruitment` (
   `deadline`    DATE DEFAULT NULL,
   `is_active`   TINYINT(1) NOT NULL DEFAULT 1,
   `created_at`  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (`posted_by`) REFERENCES `users`(`id`) ON DELETE CASCADE
+  FOREIGN KEY (`posted_by`) REFERENCES `users`(`id`) ON DELETE CASCADE,
+  INDEX `idx_recruitment_is_active` (`is_active`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
@@ -321,7 +323,8 @@ CREATE TABLE IF NOT EXISTS `live_streams` (
   `status`          ENUM('live','ended') DEFAULT 'live',
   `created_at`      DATETIME DEFAULT NOW(),
   FOREIGN KEY (`host_user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE,
-  FOREIGN KEY (`tournament_id`) REFERENCES `tournaments`(`id`) ON DELETE SET NULL
+  FOREIGN KEY (`tournament_id`) REFERENCES `tournaments`(`id`) ON DELETE SET NULL,
+  INDEX `idx_live_streams_status` (`status`)
 );
 
 

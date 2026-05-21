@@ -20,9 +20,8 @@ body {
 .msg-layout {
   display: grid;
   grid-template-columns: 320px 1fr;
-  height: calc(100vh - 100px);
+  height: calc(100vh - 90px);
   min-height: 500px;
-  max-height: 680px;
   border-radius: 16px;
   overflow: hidden;
   border: 1px solid rgba(255,255,255,0.75);
@@ -207,6 +206,8 @@ body {
   flex-direction: column;
   position: relative;
   height: 100%;
+  min-height: 0;           /* critical: allows flex children to shrink inside grid cell */
+  overflow: hidden;        /* contain children within this panel */
 }
 
 .chat-empty {
@@ -253,8 +254,8 @@ body {
 
 /* ── Chat Messages ── */
 .chat-messages {
-  flex: 1;
-  min-height: 0;
+  flex: 1 1 0;             /* grow into available space, shrink when needed */
+  min-height: 0;           /* critical: prevents flex item from overflowing */
   padding: 20px;
   overflow-y: auto;
   display: flex;

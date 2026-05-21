@@ -67,9 +67,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // ── Base Select structure ──
 $baseSelect = "SELECT t.*,
-  (SELECT COUNT(*) FROM tournament_registrations WHERE tournament_id = t.id) AS reg_count,
-  (SELECT COUNT(*) FROM tournament_registrations WHERE tournament_id = t.id AND user_id = ?) AS already_registered
-FROM tournaments t";
+  IFNULL(rc.reg_count, 0) AS reg_count,
+  IFNULL(ur.is_reg, 0) AS already_registered
+FROM tournaments t
+LEFT JOIN (
+  SELECT tournament_id, COUNT(*) as reg_count 
+  FROM tournament_registrations 
+  GROUP BY tournament_id
+) rc ON t.id = rc.tournament_id
+LEFT JOIN (
+  SELECT tournament_id, 1 as is_reg 
+  FROM tournament_registrations 
+  WHERE user_id = ?
+) ur ON t.id = ur.tournament_id";
 
 // ── Fetch FEATURED tournament ──
 $featured = null;

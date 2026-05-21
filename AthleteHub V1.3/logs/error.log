@@ -5,3 +5,242 @@
 [20-May-2026 21:52:29 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
 [20-May-2026 21:52:30 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
 [20-May-2026 21:52:32 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[20-May-2026 21:54:07 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'current_role, u.email
+    FROM role_applications ra
+    JOIN users u ON ra....' at line 8 in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\pages\admin\role_applications.php:33
+Stack trace:
+#0 C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\pages\admin\role_applications.php(33): PDO->prepare('\r\n    SELECT \r\n...')
+#1 {main}
+  thrown in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\pages\admin\role_applications.php on line 33
+[20-May-2026 21:54:10 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'current_role, u.email
+    FROM role_applications ra
+    JOIN users u ON ra....' at line 8 in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\pages\admin\role_applications.php:33
+Stack trace:
+#0 C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\pages\admin\role_applications.php(33): PDO->prepare('\r\n    SELECT \r\n...')
+#1 {main}
+  thrown in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\pages\admin\role_applications.php on line 33
+[20-May-2026 21:54:13 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'current_role, u.email
+    FROM role_applications ra
+    JOIN users u ON ra....' at line 8 in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\pages\admin\role_applications.php:33
+Stack trace:
+#0 C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\pages\admin\role_applications.php(33): PDO->prepare('\r\n    SELECT \r\n...')
+#1 {main}
+  thrown in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\pages\admin\role_applications.php on line 33
+[20-May-2026 21:54:15 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'current_role, u.email
+    FROM role_applications ra
+    JOIN users u ON ra....' at line 8 in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\pages\admin\role_applications.php:33
+Stack trace:
+#0 C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\pages\admin\role_applications.php(33): PDO->prepare('\r\n    SELECT \r\n...')
+#1 {main}
+  thrown in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\pages\admin\role_applications.php on line 33
+[20-May-2026 21:54:16 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'current_role, u.email
+    FROM role_applications ra
+    JOIN users u ON ra....' at line 8 in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\pages\admin\role_applications.php:33
+Stack trace:
+#0 C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\pages\admin\role_applications.php(33): PDO->prepare('\r\n    SELECT \r\n...')
+#1 {main}
+  thrown in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\pages\admin\role_applications.php on line 33
+[20-May-2026 21:54:16 Europe/Berlin] PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'current_role, u.email
+    FROM role_applications ra
+    JOIN users u ON ra....' at line 8 in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\pages\admin\role_applications.php:33
+Stack trace:
+#0 C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\pages\admin\role_applications.php(33): PDO->prepare('\r\n    SELECT \r\n...')
+#1 {main}
+  thrown in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\pages\admin\role_applications.php on line 33
+[20-May-2026 21:59:45 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[20-May-2026 21:59:48 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[20-May-2026 22:01:02 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[20-May-2026 22:01:08 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[20-May-2026 22:01:45 Europe/Berlin] PHP Warning:  require_once(../config/db.php): Failed to open stream: No such file or directory in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\api\role_application.php on line 17
+[20-May-2026 22:01:45 Europe/Berlin] PHP Fatal error:  Uncaught Error: Failed opening required '../config/db.php' (include_path='C:\xampp\php\PEAR') in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\api\role_application.php:17
+Stack trace:
+#0 C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\scratch_test_role_app.php(74): include()
+#1 {main}
+  thrown in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\api\role_application.php on line 17
+[20-May-2026 22:02:14 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\scratch_test_role_app.php:29) in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\api\role_application.php on line 20
+[20-May-2026 22:02:14 Europe/Berlin] PHP Fatal error:  Cannot redeclare sanitize_handle() (previously declared in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\api\role_application.php:46) in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\api\role_application.php on line 62
+[20-May-2026 22:02:36 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\scratch_test_role_app.php:29) in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\api\role_application.php on line 20
+[20-May-2026 22:02:36 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\scratch_test_role_app.php:29) in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\api\role_application.php on line 20
+[20-May-2026 22:02:36 Europe/Berlin] PHP Warning:  Undefined array key "id" in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\scratch_test_role_app.php on line 144
+[20-May-2026 22:02:36 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type bool in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\scratch_test_role_app.php on line 146
+[20-May-2026 22:02:36 Europe/Berlin] PHP Warning:  Trying to access array offset on value of type bool in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\scratch_test_role_app.php on line 147
+[20-May-2026 22:03:07 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\scratch_test_role_app.php:29) in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\api\role_application.php on line 20
+[20-May-2026 22:03:07 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\scratch_test_role_app.php:29) in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\api\role_application.php on line 20
+[20-May-2026 22:03:07 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\scratch_test_role_app.php:29) in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\api\role_application.php on line 20
+[20-May-2026 22:03:07 Europe/Berlin] PHP Warning:  Cannot modify header information - headers already sent by (output started at C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\scratch_test_role_app.php:29) in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\api\role_application.php on line 20
+[20-May-2026 22:05:53 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[20-May-2026 22:09:05 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[20-May-2026 22:09:07 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[20-May-2026 22:09:28 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[20-May-2026 22:09:30 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[20-May-2026 22:09:42 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[20-May-2026 22:09:44 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[20-May-2026 22:09:46 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[20-May-2026 22:09:49 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[20-May-2026 22:09:53 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[20-May-2026 22:09:57 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 06:45:58 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 06:46:00 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 06:46:05 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 06:46:08 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 06:46:09 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 06:46:10 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 06:46:14 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 06:46:23 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 06:48:21 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 06:48:28 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 06:50:28 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 06:51:22 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 06:51:28 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 06:51:29 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 06:51:35 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 06:51:36 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 06:51:38 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 06:51:40 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 06:51:41 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 06:51:43 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 06:51:46 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 06:59:23 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 06:59:33 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 06:59:35 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 06:59:41 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 06:59:43 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 06:59:48 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 06:59:52 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:00:30 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:00:34 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:00:36 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:00:39 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:00:43 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:00:46 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:03:30 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:03:31 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:03:31 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:04:55 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:04:59 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:05:00 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:05:01 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:05:02 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:05:03 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:05:12 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:05:14 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:05:15 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:05:18 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:07:38 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:07:41 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:07:44 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:08:23 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:08:31 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:08:32 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:09:55 Europe/Berlin] PHP Warning:  Undefined array key "name" in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\pages\feed.php on line 14
+[21-May-2026 07:09:55 Europe/Berlin] PHP Deprecated:  explode(): Passing null to parameter #2 ($string) of type string is deprecated in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\pages\feed.php on line 20
+[21-May-2026 07:09:55 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:10:01 Europe/Berlin] PHP Warning:  Undefined array key "name" in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\pages\feed.php on line 14
+[21-May-2026 07:10:01 Europe/Berlin] PHP Deprecated:  explode(): Passing null to parameter #2 ($string) of type string is deprecated in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\pages\feed.php on line 20
+[21-May-2026 07:10:01 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:10:10 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:10:27 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:11:51 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:11:55 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:11:58 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:14:13 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:14:18 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:14:20 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:14:22 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:14:24 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:14:33 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:14:37 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:14:45 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:18:58 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:19:00 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:19:01 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:19:08 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:19:12 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:19:15 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:19:23 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:21:40 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:22:03 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:22:06 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:22:07 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:22:15 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:22:18 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:22:22 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:22:28 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:22:44 Europe/Berlin] PHP Warning:  Undefined array key "user_id" in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\pages\messages.php on line 11
+[21-May-2026 07:22:44 Europe/Berlin] PHP Warning:  Undefined array key "name" in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\pages\messages.php on line 12
+[21-May-2026 07:22:44 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:23:19 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:23:22 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:23:23 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:23:51 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:23:53 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:27:29 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:27:31 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:27:36 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:27:43 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:28:28 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:29:17 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:29:20 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:29:21 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:29:29 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:29:47 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:30:03 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:31:05 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:31:06 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:32:51 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:32:52 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:32:53 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:33:00 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:33:07 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:33:09 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:33:10 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:33:15 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:33:15 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:33:17 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:35:16 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:35:20 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:37:48 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:37:51 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:43:08 Europe/Berlin] PHP Warning:  Undefined array key "user_id" in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\pages\messages.php on line 11
+[21-May-2026 07:43:08 Europe/Berlin] PHP Warning:  Undefined array key "name" in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\pages\messages.php on line 12
+[21-May-2026 07:43:08 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:44:10 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:44:18 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:44:19 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:46:01 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:48:32 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:48:53 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:49:54 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:50:13 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:50:15 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:50:16 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:50:17 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:50:21 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:50:22 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:50:23 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:50:30 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:51:06 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:51:11 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:51:13 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:55:55 Europe/Berlin] PHP Warning:  Undefined array key "user_id" in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\pages\feed.php on line 12
+[21-May-2026 07:55:55 Europe/Berlin] PHP Warning:  Undefined array key "role" in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\pages\feed.php on line 13
+[21-May-2026 07:55:55 Europe/Berlin] PHP Warning:  Undefined array key "name" in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\pages\feed.php on line 14
+[21-May-2026 07:55:55 Europe/Berlin] PHP Deprecated:  explode(): Passing null to parameter #2 ($string) of type string is deprecated in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\pages\feed.php on line 20
+[21-May-2026 07:55:55 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:56:37 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:56:52 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:58:10 Europe/Berlin] PHP Warning:  Undefined array key "user_id" in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\pages\feed.php on line 12
+[21-May-2026 07:58:10 Europe/Berlin] PHP Warning:  Undefined array key "role" in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\pages\feed.php on line 13
+[21-May-2026 07:58:10 Europe/Berlin] PHP Warning:  Undefined array key "name" in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\pages\feed.php on line 14
+[21-May-2026 07:58:10 Europe/Berlin] PHP Deprecated:  explode(): Passing null to parameter #2 ($string) of type string is deprecated in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\pages\feed.php on line 20
+[21-May-2026 07:58:10 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:59:00 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 07:59:03 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 08:01:04 Europe/Berlin] PHP Warning:  Undefined array key "user_id" in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\pages\feed.php on line 12
+[21-May-2026 08:01:04 Europe/Berlin] PHP Warning:  Undefined array key "role" in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\pages\feed.php on line 13
+[21-May-2026 08:01:04 Europe/Berlin] PHP Warning:  Undefined array key "name" in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\pages\feed.php on line 14
+[21-May-2026 08:01:04 Europe/Berlin] PHP Deprecated:  explode(): Passing null to parameter #2 ($string) of type string is deprecated in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\pages\feed.php on line 20
+[21-May-2026 08:01:04 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 08:01:47 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 08:01:54 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2
+[21-May-2026 08:01:57 Europe/Berlin] PHP Notice:  session_start(): Ignoring session_start() because a session is already active in C:\xampp\htdocs\Athletehub\Athletehub\AthleteHub V1.3\includes\header.php on line 2

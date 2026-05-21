@@ -340,7 +340,7 @@ document.getElementById('applyMultiStepForm').addEventListener('submit', async f
         // ── Surface HTTP-level errors before trying to parse JSON ──
         if (!response.ok) {
             const text = await response.text();
-            console.error('Server error response:', text);
+            // Internal server error received
             const msg = response.status === 403
                 ? 'Session expired. Please refresh the page and try again.'
                 : `Server error (${response.status}). Please try again.`;
@@ -365,7 +365,7 @@ document.getElementById('applyMultiStepForm').addEventListener('submit', async f
             else alert(result.error || 'Submission failed');
         }
     } catch (error) {
-        console.error('Submission error:', error);
+        // Handled via UI
         if (window.showToast) showToast('A network error occurred. Please check your connection and try again.', 'error');
     } finally {
         btn.innerHTML = origHtml;

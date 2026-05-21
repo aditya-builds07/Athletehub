@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 showEmpty();
             }
         } catch (err) {
-            console.error('[Users Fetch Error]', err);
+            showToast('Failed to load users. Please try again.', 'error');
             showEmpty(); // Could be a specific showError state in future
         } finally {
             hideLoader();
@@ -208,7 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         alert(data.error || data.message || 'Failed to toggle follow');
                     }
                 } catch (err) {
-                    console.error('[Follow Error]', err);
+                    showToast('Action failed. Please try again.', 'error');
                 }
             });
         });

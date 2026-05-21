@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
           liveDot.style.display = 'none';
         }
       })
-      .catch(e => console.error('Failed to check live streams:', e));
+      .catch(e => { /* Stream check failed silently */ });
   }
 
   /* ── Global Search ── */
@@ -125,21 +125,37 @@ document.addEventListener('DOMContentLoaded', () => {
             a.className = 'search-result-item';
             a.href = `${window.AthleteHubBaseUrl || ''}/pages/profile.php?id=${parseInt(user.id)}`;
             
-            const safeName = escapeHtml(user.name);
-            const safeRole = escapeHtml(user.role);
-            const safePic  = user.profile_pic ? escapeHtml(user.profile_pic) : '';
-
-            const avatar = safePic 
-              ? `<img src="${window.AthleteHubBaseUrl || ''}/uploads/profile_pics/${safePic}" style="width:32px;height:32px;border-radius:50%;object-fit:cover;" alt="">`
-              : `<div class="avatar-circle" style="width:32px;height:32px;font-size:12px;">${safeName.charAt(0)}</div>`;
+            if (user.profile_pic) {
+              const img = document.createElement('img');
+              img.src = `${window.AthleteHubBaseUrl || ''}/uploads/profile_pics/${user.profile_pic}`;
+              img.style.width = '32px';
+              img.style.height = '32px';
+              img.style.borderRadius = '50%';
+              img.style.objectFit = 'cover';
+              img.alt = '';
+              a.appendChild(img);
+            } else {
+              const div = document.createElement('div');
+              div.className = 'avatar-circle';
+              div.style.width = '32px';
+              div.style.height = '32px';
+              div.style.fontSize = '12px';
+              div.textContent = user.name ? user.name.charAt(0) : '?';
+              a.appendChild(div);
+            }
               
-            a.innerHTML = `
-              ${avatar}
-              <div>
-                <span class="search-result-name">${safeName}</span>
-                <span class="search-result-role">${safeRole.charAt(0).toUpperCase() + safeRole.slice(1)}</span>
-              </div>
-            `;
+            const infoDiv = document.createElement('div');
+            const nameSpan = document.createElement('span');
+            nameSpan.className = 'search-result-name';
+            nameSpan.textContent = user.name;
+            const roleSpan = document.createElement('span');
+            roleSpan.className = 'search-result-role';
+            roleSpan.textContent = user.role ? (user.role.charAt(0).toUpperCase() + user.role.slice(1)) : '';
+            
+            infoDiv.appendChild(nameSpan);
+            infoDiv.appendChild(roleSpan);
+            
+            a.appendChild(infoDiv);
             searchList.appendChild(a);
           });
         })
@@ -197,11 +213,15 @@ function showToast(message, type = 'info', duration = 3000) {
     warning: 'warning'
   };
 
-  const safeMessage = escapeHtml(String(message));
-  toast.innerHTML = `
-    <span class="material-icons-round">${icons[type] || 'info'}</span>
-    <span>${safeMessage}</span>
-  `;
+  const iconSpan = document.createElement('span');
+  iconSpan.className = 'material-icons-round';
+  iconSpan.textContent = icons[type] || 'info';
+
+  const textSpan = document.createElement('span');
+  textSpan.textContent = String(message);
+
+  toast.appendChild(iconSpan);
+  toast.appendChild(textSpan);
 
   container.appendChild(toast);
 

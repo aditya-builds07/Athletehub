@@ -19,7 +19,7 @@ $query = "
         ra.profile_photo, ra.years_experience, ra.team_player_count,
         ra.city, ra.country, ra.instagram, ra.twitter, ra.linkedin,
         ra.facebook, ra.youtube, ra.submitted_at,
-        u.name as applicant_name, u.role as current_role, u.email
+        u.name as applicant_name, u.`role` as `current_role`, u.email
     FROM role_applications ra
     JOIN users u ON ra.user_id = u.id
 ";

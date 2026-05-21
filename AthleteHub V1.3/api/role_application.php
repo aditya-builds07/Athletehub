@@ -40,26 +40,25 @@ if (!$userId) {
     exit;
 }
 
-/**
- * Sanitize social handles from full URLs or bare handles.
- */
-function sanitize_handle(string $input, string $platform): ?string {
-    $input = trim($input);
-    if ($input === '') return null;
+if (!function_exists('sanitize_handle')) {
+    function sanitize_handle(string $input, string $platform): ?string {
+        $input = trim($input);
+        if ($input === '') return null;
 
-    $patterns = [
-        'instagram' => '/(?:https?:\/\/)?(?:www\.)?instagram\.com\/([a-zA-Z0-9._]+)\/?/i',
-        'twitter'   => '/(?:https?:\/\/)?(?:www\.)?(?:twitter|x)\.com\/([a-zA-Z0-9_]+)\/?/i',
-        'linkedin'  => '/(?:https?:\/\/)?(?:www\.)?linkedin\.com\/in\/([a-zA-Z0-9_-]+)\/?/i',
-        'facebook'  => '/(?:https?:\/\/)?(?:www\.)?facebook\.com\/([a-zA-Z0-9._-]+)\/?/i',
-        'youtube'   => '/(?:https?:\/\/)?(?:www\.)?youtube\.com\/(?:@|user\/|channel\/)?([a-zA-Z0-9_-]+)\/?/i',
-    ];
+        $patterns = [
+            'instagram' => '/(?:https?:\/\/)?(?:www\.)?instagram\.com\/([a-zA-Z0-9._]+)\/?/i',
+            'twitter'   => '/(?:https?:\/\/)?(?:www\.)?(?:twitter|x)\.com\/([a-zA-Z0-9_]+)\/?/i',
+            'linkedin'  => '/(?:https?:\/\/)?(?:www\.)?linkedin\.com\/in\/([a-zA-Z0-9_-]+)\/?/i',
+            'facebook'  => '/(?:https?:\/\/)?(?:www\.)?facebook\.com\/([a-zA-Z0-9._-]+)\/?/i',
+            'youtube'   => '/(?:https?:\/\/)?(?:www\.)?youtube\.com\/(?:@|user\/|channel\/)?([a-zA-Z0-9_-]+)\/?/i',
+        ];
 
-    if (isset($patterns[$platform]) && preg_match($patterns[$platform], $input, $m)) {
-        return $m[1];
+        if (isset($patterns[$platform]) && preg_match($patterns[$platform], $input, $m)) {
+            return $m[1];
+        }
+        // Strip any leading @ or /
+        return ltrim($input, '/@');
     }
-    // Strip any leading @ or /
-    return ltrim($input, '/@');
 }
 
 switch ($action) {
@@ -240,8 +239,29 @@ switch ($action) {
             $pdo->prepare("UPDATE users SET role=?, is_verified=1 WHERE id=?")
                 ->execute([$reqRole, $applicantId]);
 
-            // Notification via messages table (message_text column)
-            $msgContent = "🎉 Your application for the " . strtoupper($reqRole) . " role has been approved! Your account has been upgraded.";
+            // Notification via messages table — expanded with rules & conditions
+            $rolePerms = [
+                'club'      => "✅ Create & manage tournaments\n✅ Recruit athletes and coaches\n✅ Host livestreams\n✅ Post recruitment listings",
+                'recruiter' => "✅ Browse and scout athlete profiles\n✅ Post recruitment opportunities\n✅ Send direct recruitment offers\n✅ Access advanced search filters",
+                'athlete'   => "✅ Register for tournaments\n✅ Build your sports portfolio\n✅ Connect with coaches and clubs\n✅ Apply for recruitment listings",
+                'coach'     => "✅ Create training programs\n✅ Connect with athletes and clubs\n✅ Host livestream training sessions\n✅ Post coaching availability",
+            ];
+            $permsText = $rolePerms[$reqRole] ?? "✅ Access role-specific features";
+
+            $msgContent = "🎉 Your application for the " . strtoupper($reqRole) . " role has been approved! Your account has been upgraded.\n\n"
+                . "━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+                . "🔑 YOUR NEW PERMISSIONS:\n"
+                . $permsText . "\n\n"
+                . "━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+                . "📋 RULES & CONDITIONS:\n"
+                . "• Your role is on a 30-day probation period. Maintain regular activity to keep your privileges.\n"
+                . "• Please maintain professional conduct at all times. Violations may result in role revocation.\n"
+                . "• Review our community guidelines before using your new privileges.\n"
+                . "• Misuse of role privileges (spam, harassment, fake listings) will lead to immediate suspension.\n\n"
+                . "━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+                . "💬 NEED HELP?\n"
+                . "If you have any questions, message the Admin directly or visit the Help Center.\n\n"
+                . "Welcome aboard! 🚀";
             $pdo->prepare("INSERT INTO messages (sender_id, receiver_id, message_text) VALUES (?, ?, ?)")
                 ->execute([$userId, $applicantId, $msgContent]);
 

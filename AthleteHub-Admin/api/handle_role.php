@@ -117,10 +117,32 @@ if ($action === 'approve') {
         );
         $stmt->execute([$requestedRole, $app['user_id']]);
 
-        // 3. Insert notification (safe message — role is whitelisted)
-        $notifMsg = 'Congratulations! Your application for the '
-                    . ucfirst($requestedRole)
-                    . ' role has been approved. Your account has been upgraded.';
+        // 3. Build rich approval message with rules & conditions
+        $rolePerms = [
+            'club'      => "✅ Create & manage tournaments\n✅ Recruit athletes and coaches\n✅ Host livestreams\n✅ Post recruitment listings",
+            'recruiter' => "✅ Browse and scout athlete profiles\n✅ Post recruitment opportunities\n✅ Send direct recruitment offers\n✅ Access advanced search filters",
+            'athlete'   => "✅ Register for tournaments\n✅ Build your sports portfolio\n✅ Connect with coaches and clubs\n✅ Apply for recruitment listings",
+            'coach'     => "✅ Create training programs\n✅ Connect with athletes and clubs\n✅ Host livestream training sessions\n✅ Post coaching availability",
+        ];
+        $permsText = $rolePerms[$requestedRole] ?? "✅ Access role-specific features";
+
+        $notifMsg = "🎉 Congratulations! Your application for the "
+            . ucfirst($requestedRole)
+            . " role has been approved. Your account has been upgraded.\n\n"
+            . "━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+            . "🔑 YOUR NEW PERMISSIONS:\n"
+            . $permsText . "\n\n"
+            . "━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+            . "📋 RULES & CONDITIONS:\n"
+            . "• Your role is on a 30-day probation period. Maintain regular activity to keep your privileges.\n"
+            . "• Please maintain professional conduct at all times. Violations may result in role revocation.\n"
+            . "• Review our community guidelines before using your new privileges.\n"
+            . "• Misuse of role privileges (spam, harassment, fake listings) will lead to immediate suspension.\n\n"
+            . "━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+            . "💬 NEED HELP?\n"
+            . "If you have any questions, message the Admin directly or visit the Help Center.\n\n"
+            . "Welcome aboard! 🚀";
+
         $stmt = $pdo->prepare(
             "INSERT INTO notifications (user_id, type, message, created_at)
              VALUES (?, 'role_approved', ?, NOW())"

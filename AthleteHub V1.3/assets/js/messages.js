@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 json = JSON.parse(textResponse);
             } catch(e) {
-                console.error("Failed to parse JSON PHP output:", textResponse);
+                // JSON parsing failed
                 throw new Error("Invalid Server Output");
             }
 
@@ -108,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } catch (err) {
             showToast('Network error sending message.', 'error');
-            console.error(err);
+            // Error handled by toast
         } finally {
             msgInput.disabled = false;
             btnSend.disabled = false;

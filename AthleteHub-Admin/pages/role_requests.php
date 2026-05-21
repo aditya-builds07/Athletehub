@@ -97,7 +97,7 @@ function buildUrl(array $override = []): string {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo e($pageTitle); ?> — AthleteHub Admin</title>
     <meta name="description" content="Review and manage athlete role upgrade applications.">
-    <meta name="admin-csrf" content="<?php echo e($_SESSION['admin_csrf'] ?? ''); ?>">
+    <meta name="admin-csrf" content="<?php echo e($_SESSION['csrf_token'] ?? ''); ?>">
     <meta name="rr-api-url" content="<?php echo e(BASE_URL); ?>/api/handle_role.php">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

@@ -40,6 +40,13 @@ function timeAgo($datetime) {
 
 // ── Handle POST Actions ──
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!validate_csrf_token()) {
+        header('Content-Type: application/json');
+        http_response_code(403);
+        echo json_encode(['success' => false, 'error' => 'Invalid CSRF token.']);
+        exit;
+    }
+
     $action = $_POST['action'] ?? '';
     
     if ($action === 'send_message') {
@@ -449,16 +456,12 @@ require_once '../includes/header.php';
 </script>
 
 <style>
-    /* Force Layout Fix - Bypass CSS Caching */
+    /* Messages page — lock viewport & hide footer (layout handled in messages.css) */
     body, html { 
-        overflow: hidden !important; /* Lock the browser scroll */
+        overflow: hidden !important;
     }
     .site-footer { 
-        display: none !important; /* Hide the footer strictly on this page */
-    }
-    .msg-layout { 
-        height: calc(100vh - 120px) !important; 
-        max-height: none !important; /* Strip original max-height to ensure it perfectly sticks to viewport */
+        display: none !important;
     }
 </style>
 

@@ -164,7 +164,7 @@ async function submitConfirmedAction() {
             }
         }
     } catch (err) {
-        console.error('[role_requests.js]', err);
+        alert('Error communicating with server.');
         showToast('Network error. Please try again.', 'error');
         if (confirmBtn) confirmBtn.disabled = false;
     }
