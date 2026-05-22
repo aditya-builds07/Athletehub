@@ -235,7 +235,7 @@ require_once '../includes/header.php';
                         <div class="conv-item <?= $isActive ? 'active' : '' ?>" data-user-id="<?= $c['id'] ?>">
                             <div class="conv-av">
                                 <?php if ($c['profile_pic']): ?>
-                                    <img src="<?= htmlspecialchars($c['profile_pic']) ?>" alt="">
+                                    <img src="<?= htmlspecialchars($c['profile_pic']) ?>" alt="<?= htmlspecialchars($c['name']) ?>'s avatar">
                                 <?php else: ?>
                                     <div class="conv-av-initials" style="background: <?= getRoleGradient($c['role']) ?>">
                                         <?= strtoupper(substr($c['name'], 0, 1)) ?>
@@ -285,7 +285,7 @@ require_once '../includes/header.php';
                         </a>
                         <div class="conv-av-small">
                             <?php if ($activeUser['profile_pic']): ?>
-                                <img src="<?= htmlspecialchars($activeUser['profile_pic']) ?>" alt="">
+                                <img src="<?= htmlspecialchars($activeUser['profile_pic']) ?>" alt="<?= htmlspecialchars($activeUser['name']) ?>'s avatar">
                             <?php else: ?>
                                 <div class="conv-av-initials" style="background: <?= getRoleGradient($activeUser['role']) ?>">
                                     <?= strtoupper(substr($activeUser['name'], 0, 1)) ?>
@@ -333,7 +333,7 @@ require_once '../includes/header.php';
                         <div class="msg-row <?= $sent ? 'sent' : 'received' ?>" data-msg-id="<?= $m['id'] ?>">
                             <div class="msg-av-sm">
                                 <?php if ($m['sender_pic']): ?>
-                                    <img src="<?= htmlspecialchars($m['sender_pic']) ?>" alt="">
+                                    <img src="<?= htmlspecialchars($m['sender_pic']) ?>" alt="<?= htmlspecialchars($m['sender_name']) ?>'s avatar">
                                 <?php else: ?>
                                     <div class="conv-av-initials" style="background: <?= getRoleGradient($m['sender_role']) ?>">
                                         <?= strtoupper(substr($m['sender_name'], 0, 1)) ?>
@@ -420,7 +420,7 @@ require_once '../includes/header.php';
                 <div class="modal-user-item" data-name="<?= strtolower($u['name']) ?>" data-sport="<?= strtolower($u['sport'] ?: '') ?>" onclick="window.location.href='messages.php?to=<?= $u['id'] ?>'">
                     <div class="conv-av" style="width:36px; height:36px; font-size:12px;">
                         <?php if ($u['profile_pic']): ?>
-                            <img src="<?= htmlspecialchars($u['profile_pic']) ?>" alt="">
+                            <img src="<?= htmlspecialchars($u['profile_pic']) ?>" alt="<?= htmlspecialchars($u['name']) ?>'s avatar">
                         <?php else: ?>
                             <div class="conv-av-initials" style="background: <?= getRoleGradient($u['role']) ?>">
                                 <?= strtoupper(substr($u['name'], 0, 1)) ?>

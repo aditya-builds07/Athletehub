@@ -286,7 +286,7 @@ if (isset($_GET['tab']) && $_GET['tab'] === 'register') {
 
                         <!-- Forgot Password -->
                         <div class="auth-forgot-row">
-                            <a href="#" class="auth-forgot-link" id="forgotPasswordLink">Forgot password?</a>
+                            <a href="javascript:void(0)" role="button" class="auth-forgot-link" id="forgotPasswordLink">Forgot password?</a>
                         </div>
 
                         <!-- Submit -->
@@ -315,7 +315,7 @@ if (isset($_GET['tab']) && $_GET['tab'] === 'register') {
                     <!-- Switch to register -->
                     <p class="auth-switch-text">
                         Don't have an account? 
-                        <a href="#" class="auth-switch-link" data-tab="register" id="switchToRegister">Create one</a>
+                        <a href="javascript:void(0)" role="button" class="auth-switch-link" data-tab="register" id="switchToRegister">Create one</a>
                     </p>
 
                 </div>
@@ -467,7 +467,7 @@ if (isset($_GET['tab']) && $_GET['tab'] === 'register') {
                     <!-- Switch to login -->
                     <p class="auth-switch-text">
                         Already have an account? 
-                        <a href="#" class="auth-switch-link" data-tab="login" id="switchToLogin">Sign In</a>
+                        <a href="javascript:void(0)" role="button" class="auth-switch-link" data-tab="login" id="switchToLogin">Sign In</a>
                     </p>
 
                 </div>

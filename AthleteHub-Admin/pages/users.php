@@ -101,22 +101,22 @@ $users = $stmt->fetchAll();
                             <td><?php echo date('M d, Y', strtotime($u['created_at'])); ?></td>
                             <td>
                                 <div class="action-btns">
-                                    <button class="btn btn-outline btn-sm" onclick="viewUser(<?php echo e($u['id']); ?>)" title="View">
+                                    <button class="btn btn-outline btn-sm" onclick="viewUser(<?php echo e($u['id']); ?>)" title="View" aria-label="View user">
                                         <span class="material-icons-round">visibility</span>
                                     </button>
-                                    <button class="btn btn-outline btn-sm" onclick="openRoleModal(<?php echo e($u['id']); ?>, '<?php echo e($u['role']); ?>')" title="Change Role">
+                                    <button class="btn btn-outline btn-sm" onclick="openRoleModal(<?php echo e($u['id']); ?>, '<?php echo e($u['role']); ?>')" title="Change Role" aria-label="Change role">
                                         <span class="material-icons-round">swap_horiz</span>
                                     </button>
                                     <?php if (!$u['suspended']): ?>
-                                    <button class="btn btn-warning btn-sm" onclick="suspendUser(<?php echo e($u['id']); ?>, 1, this)" title="Suspend">
+                                    <button class="btn btn-warning btn-sm" onclick="suspendUser(<?php echo e($u['id']); ?>, 1, this)" title="Suspend" aria-label="Suspend user">
                                         <span class="material-icons-round">block</span>
                                     </button>
                                     <?php else: ?>
-                                    <button class="btn btn-success btn-sm" onclick="suspendUser(<?php echo e($u['id']); ?>, 0, this)" title="Unsuspend">
+                                    <button class="btn btn-success btn-sm" onclick="suspendUser(<?php echo e($u['id']); ?>, 0, this)" title="Unsuspend" aria-label="Unsuspend user">
                                         <span class="material-icons-round">check_circle</span>
                                     </button>
                                     <?php endif; ?>
-                                    <button class="btn btn-danger btn-sm" onclick="deleteUser(<?php echo e($u['id']); ?>, this)" title="Delete">
+                                    <button class="btn btn-danger btn-sm" onclick="deleteUser(<?php echo e($u['id']); ?>, this)" title="Delete" aria-label="Delete user">
                                         <span class="material-icons-round">delete</span>
                                     </button>
                                 </div>

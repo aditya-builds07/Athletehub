@@ -217,7 +217,7 @@ function e($val): string
                 const ext = app.document_path.split('.').pop().toLowerCase();
                 const docUrl = BASE_URL + '/../' + esc(app.document_path);
                 if (['jpg', 'jpeg', 'png', 'gif', 'webp'].includes(ext)) {
-                    docPreview = `<img src="${docUrl}" style="max-width:100%;border-radius:8px;border:1px solid var(--border-color);margin-top:.5rem">`;
+                    docPreview = `<img src="${docUrl}" alt="Submitted verification document" style="max-width:100%;border-radius:8px;border:1px solid var(--border-color);margin-top:.5rem">`;
                 } else {
                     docPreview = `<a href="${docUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
                             <span class="material-icons-round">download</span> Download Document
@@ -287,7 +287,7 @@ function e($val): string
                 showToast(data.message || 'Application approved.', data.success ? 'success' : 'error');
                 if (data.success) setTimeout(() => location.reload(), 900);
             } catch (err) {
-                console.error('[approveApp error]', err);
+                // console.error('[approveApp error]', err);
                 showToast('An error occurred. Please try again.', 'error');
             } finally {
                 setLoading(false);
@@ -317,7 +317,7 @@ function e($val): string
                 showToast(data.message || 'Application rejected.', data.success ? 'success' : 'error');
                 if (data.success) setTimeout(() => location.reload(), 900);
             } catch (err) {
-                console.error('[rejectApp error]', err);
+                // console.error('[rejectApp error]', err);
                 showToast('An error occurred. Please try again.', 'error');
             } finally {
                 setLoading(false);
