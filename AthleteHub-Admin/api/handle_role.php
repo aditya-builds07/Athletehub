@@ -143,11 +143,7 @@ if ($action === 'approve') {
             . "If you have any questions, message the Admin directly or visit the Help Center.\n\n"
             . "Welcome aboard! 🚀";
 
-        $stmt = $pdo->prepare(
-            "INSERT INTO notifications (user_id, type, message, created_at)
-             VALUES (?, 'role_approved', ?, NOW())"
-        );
-        $stmt->execute([$app['user_id'], $notifMsg]);
+        // Notifications table does not exist, so we skip inserting into it.
 
         // 4. System message (optional — guarded; skipped if sender row absent)
         $stmt = $pdo->prepare(
@@ -195,11 +191,7 @@ if ($action === 'reject') {
         $notifMsg = 'Your application for the '
                     . ucfirst($requestedRole)
                     . ' role was not approved. Reason: ' . $adminNote;
-        $stmt = $pdo->prepare(
-            "INSERT INTO notifications (user_id, type, message, created_at)
-             VALUES (?, 'role_rejected', ?, NOW())"
-        );
-        $stmt->execute([$app['user_id'], $notifMsg]);
+        // Notifications table does not exist, so we skip inserting into it.
 
         // 3. System message (optional — guarded)
         $stmt = $pdo->prepare(

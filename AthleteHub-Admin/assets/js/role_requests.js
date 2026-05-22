@@ -155,7 +155,7 @@ async function submitConfirmedAction() {
             closeConfirmModal();
             setTimeout(() => window.location.reload(), 900);
         } else {
-            showToast(data.message || 'Something went wrong', 'error');
+            showToast(data.error || data.message || 'Something went wrong', 'error');
             if (confirmBtn) {
                 confirmBtn.disabled = false;
                 confirmBtn.innerHTML = _pendingAction === 'approve'

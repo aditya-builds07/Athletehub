@@ -110,33 +110,32 @@ document.addEventListener('DOMContentLoaded', () => {
                 ? (nameParts[0][0] + nameParts[1][0]).toUpperCase()
                 : nameParts[0][0].toUpperCase();
 
-            // Generate a consistent color based on name hash
-            const colors = ['#6366f1', '#8b5cf6', '#06b6d4', '#10b981', '#f59e0b', '#ef4444', '#ec4899', '#14b8a6'];
-            const colorIndex = (u.full_name || '').split('').reduce((a, c) => a + c.charCodeAt(0), 0) % colors.length;
-            const bgColor = colors[colorIndex];
+            // Generate a consistent vibrant gradient based on name hash
+            const gradients = [
+                'linear-gradient(135deg, #ec4899, #8b5cf6)', // pink-purple
+                'linear-gradient(135deg, #3b82f6, #06b6d4)', // blue-cyan
+                'linear-gradient(135deg, #10b981, #3b82f6)', // green-blue
+                'linear-gradient(135deg, #f97316, #eab308)'  // orange-yellow
+            ];
+            const colorIndex = (u.full_name || '').split('').reduce((a, c) => a + c.charCodeAt(0), 0) % gradients.length;
+            const bgGradient = gradients[colorIndex];
 
             // Avatar: show image if exists, otherwise show initials
             const avatarHtml = u.avatar
-                ? `<img src="${BASE_URL}/uploads/profile_pics/${e(u.avatar)}" class="user-card__avatar" alt="${e(u.full_name)}" onerror="this.outerHTML='<div class=\\'user-card__avatar user-card__initials\\' style=\\'background:${bgColor}\\'>${initials}</div>'">`
-                : `<div class="user-card__avatar user-card__initials" style="background:${bgColor}">${initials}</div>`;
+                ? `<img src="${BASE_URL}/uploads/profile_pics/${e(u.avatar)}" class="user-card__avatar" alt="${e(u.full_name)}" onerror="this.outerHTML='<div class=\\'user-card__avatar user-card__initials\\' style=\\'background:${bgGradient}\\'>${initials}</div>'">`
+                : `<div class="user-card__avatar user-card__initials" style="background:${bgGradient}">${initials}</div>`;
 
             return `
-            <div class="user-card glass">
-                <div class="user-card__header">
+            <div class="user-card compact-glass" onclick="window.location.href='${BASE_URL}/pages/profile.php?id=${u.id}'" style="cursor:pointer;">
+                <div class="compact-left">
                     ${avatarHtml}
-                    <div class="user-card__info">
-                        <h3>${e(u.full_name)} ${u.is_verified ? '<iconify-icon icon="solar:verified-check-bold" class="verified"></iconify-icon>' : ''}</h3>
-                        <span>@${e(u.username)}</span>
+                    <div class="compact-info">
+                        <div class="compact-name">${e(u.full_name)} ${u.is_verified ? '<iconify-icon icon="solar:verified-check-bold" class="verified"></iconify-icon>' : ''}</div>
+                        <div class="compact-role">${e(u.role)}</div>
                     </div>
                 </div>
-                <div class="user-card__meta">
-                    <span>🏃 ${e(u.sport ?? '—')}</span>
-                    <span>📍 ${e(u.location ?? '—')}</span>
-                </div>
-                <span class="badge badge--${e(u.role)}">${e(u.role)}</span>
-                <div class="user-card__actions">
-                    <a href="${BASE_URL}/pages/profile.php?id=${u.id}" class="btn btn-outline">View Profile</a>
-                    <button class="btn btn--primary follow-btn" data-id="${u.id}">Follow</button>
+                <div class="compact-right">
+                    <button class="btn-minimal-follow follow-btn" data-id="${u.id}" onclick="event.stopPropagation()">Follow</button>
                 </div>
             </div>
         `}).join('');

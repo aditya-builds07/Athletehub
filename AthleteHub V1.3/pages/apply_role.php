@@ -417,54 +417,92 @@ require_once '../includes/header.php';
                             Review Your Application
                         </h2>
                         
-                        <div class="glass-card bg-black/20 p-8 border border-white/5 rounded-xl mb-10">
-                            <!-- Identity Section -->
-                            <div class="review-section">
-                                <a href="javascript:void(0)" onclick="nextStep(1)" class="edit-btn">Edit</a>
-                                <div class="flex items-center gap-4 mb-3">
-                                    <img id="reviewProfileImg" src="<?= ASSETS ?>/images/default-avatar.png" class="w-12 h-12 rounded-full object-cover">
-                                    <div>
-                                        <h4 class="font-bold text-lg leading-tight"><?= e($userName) ?></h4>
-                                        <span id="reviewRole" class="micro-pill bg-primary/20 text-primary uppercase font-bold text-[10px]">Role</span>
+                        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 mb-10">
+                            <!-- LEFT COLUMN (35%) -->
+                            <div class="md:col-span-4 flex flex-col gap-6">
+                                <!-- Profile Image Card -->
+                                <div class="glass-card bg-black/20 p-6 border border-white/5 rounded-[16px] shadow-sm flex flex-col items-center">
+                                    <img id="reviewProfileImg" src="<?= ASSETS ?>/images/default-avatar.png" class="w-full max-h-[300px] aspect-[4/5] object-cover rounded-[12px] shadow-md mb-5">
+                                    <div class="text-center w-full">
+                                        <h4 class="font-bold text-[18px] leading-tight mb-2"><?= e($userName) ?></h4>
+                                        <span id="reviewRole" class="inline-block bg-primary/20 text-primary uppercase font-bold text-[12px] px-3 py-1 rounded-full">Role</span>
                                     </div>
                                 </div>
-                                <table class="review-table">
-                                    <tr><td class="label">Location</td><td class="value" id="reviewLocation">City, Country</td></tr>
-                                    <tr><td class="label">Phone</td><td class="value" id="reviewPhone">Phone</td></tr>
-                                </table>
+
+                                <!-- Quick Profile Summary Card -->
+                                <div class="glass-card bg-black/20 p-6 border border-white/5 rounded-[16px] shadow-sm relative">
+                                    <a href="javascript:void(0)" onclick="nextStep(1)" class="text-primary text-[14px] absolute top-6 right-6 font-medium hover:underline">Edit</a>
+                                    <h3 class="text-[16px] font-semibold mb-4 border-b border-white/10 pb-3">Contact Info</h3>
+                                    <div class="flex flex-col gap-4">
+                                        <div>
+                                            <p class="text-[14px] text-gray-400 mb-1">Location</p>
+                                            <p class="text-[15px] font-medium text-white" id="reviewLocation">City, Country</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-[14px] text-gray-400 mb-1">Phone</p>
+                                            <p class="text-[15px] font-medium text-white" id="reviewPhone">Phone</p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
-                            <!-- Organisation Section -->
-                            <div class="review-section" style="border-color: #3b82f6;">
-                                <a href="javascript:void(0)" onclick="nextStep(2)" class="edit-btn">Edit</a>
-                                <h4 class="font-bold text-base mb-3 text-blue-400" id="reviewOrgName">Organisation Name</h4>
-                                <table class="review-table">
-                                    <tr><td class="label">Experience / Est.</td><td class="value" id="reviewExp">X Years</td></tr>
-                                    <tr><td class="label" id="reviewStatLabel">Members / Placed</td><td class="value" id="reviewStatVal">0</td></tr>
-                                    <tr><td class="label">Website</td><td class="value text-blue-400"><span id="reviewWebsite" class="break-all">Website</span></td></tr>
-                                </table>
-                            </div>
+                            <!-- RIGHT COLUMN (65%) -->
+                            <div class="md:col-span-8 flex flex-col gap-6">
+                                <!-- Application Details Card -->
+                                <div class="glass-card bg-black/20 p-6 border border-blue-500/20 rounded-[16px] shadow-sm relative">
+                                    <a href="javascript:void(0)" onclick="nextStep(2)" class="text-blue-400 text-[14px] absolute top-6 right-6 font-medium hover:underline">Edit</a>
+                                    <h3 class="text-[16px] font-semibold mb-4 text-blue-400 border-b border-blue-500/20 pb-3">Organisation Details</h3>
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                        <div class="sm:col-span-2">
+                                            <p class="text-[14px] text-gray-400 mb-1">Organisation Name</p>
+                                            <p class="text-[16px] font-bold text-white" id="reviewOrgName">Organisation Name</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-[14px] text-gray-400 mb-1">Experience / Est.</p>
+                                            <p class="text-[15px] font-medium text-white" id="reviewExp">X Years</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-[14px] text-gray-400 mb-1" id="reviewStatLabel">Members / Placed</p>
+                                            <p class="text-[15px] font-medium text-white" id="reviewStatVal">0</p>
+                                        </div>
+                                        <div class="sm:col-span-2">
+                                            <p class="text-[14px] text-gray-400 mb-1">Website</p>
+                                            <p class="text-[15px] font-medium text-blue-400 break-all" id="reviewWebsite">Website</p>
+                                        </div>
+                                    </div>
+                                </div>
 
-                            <!-- Documents Section -->
-                            <div class="review-section" style="border-color: #10b981;">
-                                <a href="javascript:void(0)" onclick="nextStep(3)" class="edit-btn">Edit</a>
-                                <table class="review-table">
-                                    <tr><td class="label">Document Type</td><td class="value" id="reviewDocType">Type Name</td></tr>
-                                    <tr><td class="label">File Uploaded</td><td class="value"><span class="flex items-center gap-1 text-emerald-400"><span class="material-icons-round text-sm">check_circle</span> <span id="reviewDocName">Filename.pdf</span></span></td></tr>
-                                </table>
-                            </div>
+                                <!-- Uploaded Document Card -->
+                                <div class="glass-card bg-black/20 p-6 border border-emerald-500/20 rounded-[16px] shadow-sm relative">
+                                    <a href="javascript:void(0)" onclick="nextStep(3)" class="text-emerald-400 text-[14px] absolute top-6 right-6 font-medium hover:underline">Edit</a>
+                                    <h3 class="text-[16px] font-semibold mb-4 text-emerald-400 border-b border-emerald-500/20 pb-3">Verification Document</h3>
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                        <div>
+                                            <p class="text-[14px] text-gray-400 mb-1">Document Type</p>
+                                            <p class="text-[15px] font-medium text-white" id="reviewDocType">Type Name</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-[14px] text-gray-400 mb-1">File Uploaded</p>
+                                            <div class="flex items-center gap-2 text-emerald-400 mt-1">
+                                                <span class="material-icons-round text-[18px]">check_circle</span> 
+                                                <span id="reviewDocName" class="text-[15px] font-medium text-white break-all">Filename.pdf</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-                            <!-- Socials Section -->
-                            <div class="review-section" style="border-color: #8b5cf6;">
-                                <a href="javascript:void(0)" onclick="nextStep(3)" class="edit-btn">Edit</a>
-                                <p class="text-xs font-bold text-purple-400 mb-3 uppercase tracking-wider">Social Profiles</p>
-                                <div class="flex flex-wrap gap-2">
-                                    <div id="badgeInsta" class="hidden social-badge bg-gradient-to-tr from-yellow-500 via-red-500 to-purple-500"><i class="fab fa-instagram"></i></div>
-                                    <div id="badgeTwitter" class="hidden social-badge bg-[#1DA1F2]"><i class="fab fa-twitter"></i></div>
-                                    <div id="badgeLinkedIn" class="hidden social-badge bg-[#0077b5]"><i class="fab fa-linkedin-in"></i></div>
-                                    <div id="badgeFB" class="hidden social-badge bg-[#1877F2]"><i class="fab fa-facebook-f"></i></div>
-                                    <div id="badgeYT" class="hidden social-badge bg-[#FF0000]"><i class="fab fa-youtube"></i></div>
-                                    <p id="noSocials" class="text-xs text-gray-500 italic">No social profiles added</p>
+                                <!-- Additional Information Card -->
+                                <div class="glass-card bg-black/20 p-6 border border-purple-500/20 rounded-[16px] shadow-sm relative">
+                                    <a href="javascript:void(0)" onclick="nextStep(3)" class="text-purple-400 text-[14px] absolute top-6 right-6 font-medium hover:underline">Edit</a>
+                                    <h3 class="text-[16px] font-semibold mb-4 text-purple-400 border-b border-purple-500/20 pb-3">Social Profiles</h3>
+                                    <div class="flex flex-wrap gap-3">
+                                        <div id="badgeInsta" class="hidden social-badge bg-gradient-to-tr from-yellow-500 via-red-500 to-purple-500"><i class="fab fa-instagram"></i></div>
+                                        <div id="badgeTwitter" class="hidden social-badge bg-[#1DA1F2]"><i class="fab fa-twitter"></i></div>
+                                        <div id="badgeLinkedIn" class="hidden social-badge bg-[#0077b5]"><i class="fab fa-linkedin-in"></i></div>
+                                        <div id="badgeFB" class="hidden social-badge bg-[#1877F2]"><i class="fab fa-facebook-f"></i></div>
+                                        <div id="badgeYT" class="hidden social-badge bg-[#FF0000]"><i class="fab fa-youtube"></i></div>
+                                        <p id="noSocials" class="text-[15px] text-gray-500 italic py-1">No social profiles added</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -481,11 +519,11 @@ require_once '../includes/header.php';
                             </label>
                         </div>
                         
-                        <div class="flex flex-wrap justify-between items-center gap-4 pt-4">
-                            <button type="button" class="btn btn-outline px-8 flex items-center gap-2" onclick="nextStep(3)">
-                                <span class="material-icons-round">arrow_back</span> Back
+                        <div class="flex flex-wrap justify-between items-center gap-4 pt-6 mt-6 border-t border-white/10">
+                            <button type="button" class="btn btn-outline rounded-lg px-8 py-3.5 text-sm font-bold flex items-center gap-2 hover:bg-white/10 transition-colors" onclick="nextStep(3)">
+                                <span class="material-icons-round text-[18px]">arrow_back</span> Back
                             </button>
-                            <button type="submit" class="btn-submit-gradient rounded-lg px-10 py-4 text-base font-bold flex justify-center items-center gap-3 min-w-[220px]" id="finalSubmitBtn" style="color:#ffffff !important;">
+                            <button type="submit" class="btn-submit-gradient rounded-lg px-10 py-4 text-base font-bold flex justify-center items-center gap-3 min-w-[220px] shadow-lg" id="finalSubmitBtn" style="color:#ffffff !important;">
                                 <span class="material-icons-round">verified</span>
                                 Submit Application
                             </button>
@@ -495,18 +533,17 @@ require_once '../includes/header.php';
             </div>
 
             <!-- Success Overlay Card -->
-            <div id="successCard" class="hidden glass-card success-card p-12 text-center border-green-500/30 bg-green-500/10 shadow-[0_0_50px_rgba(34,197,94,0.1)]">
-                <div class="mb-8 relative inline-block">
-                    <div class="absolute inset-0 bg-green-500/30 blur-2xl rounded-full animate-pulse"></div>
-                    <span class="material-icons-round text-[100px] text-green-500 relative z-10 drop-shadow-[0_0_15px_rgba(34,197,94,0.5)]">check_circle</span>
+            <div id="successCard" class="hidden success-card mx-auto max-w-[600px] bg-white rounded-[16px] p-6 border border-gray-200 shadow-sm text-center mt-10">
+                <div class="mb-4 inline-flex justify-center items-center">
+                    <span class="material-icons-round text-[48px] text-green-500">check_circle</span>
                 </div>
-                <h2 class="text-3xl font-extrabold mb-4 text-white">Application Submitted Successfully!</h2>
-                <p class="text-gray-300 max-w-lg mx-auto mb-10 leading-relaxed text-lg">
+                <h2 class="text-[28px] font-semibold text-gray-900 mb-3">Application Submitted Successfully!</h2>
+                <p class="text-[15px] text-gray-500 max-w-[480px] mx-auto mb-6 leading-relaxed">
                     Your application has been received and is under review. Our admin team will verify your documents and notify you via your AthleteHub message box within 3-5 business days.
                 </p>
-                <div class="flex flex-col md:flex-row gap-4 justify-center">
-                    <a href="feed.php" class="btn btn-primary px-10 py-3 shadow-glow font-bold">Go to Home Feed</a>
-                    <a href="messages.php" class="btn btn-outline px-10 py-3 font-bold">Check Messages</a>
+                <div class="flex flex-col sm:flex-row gap-3 justify-center items-center">
+                    <a href="feed.php" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium text-[15px] transition-colors w-auto text-center inline-block">Go to Home Feed</a>
+                    <a href="messages.php" class="bg-transparent border border-gray-300 hover:bg-gray-50 text-gray-700 px-6 py-2 rounded-lg font-medium text-[15px] transition-colors w-auto text-center inline-block">Check Messages</a>
                 </div>
             </div>
 
@@ -914,7 +951,7 @@ require_once '../includes/header.php';
    SUBMIT BUTTON
    ============================================= */
 .btn-submit-gradient {
-    background: linear-gradient(135deg, var(--primary) 0%, rgba(var(--primary-rgb), 0.6) 100%);
+    background: linear-gradient(135deg, skyblue 0%, deepskyblue 100%);
     border: none;
     color: #ffffff !important;
     transition: all 0.3s ease;
@@ -926,8 +963,8 @@ require_once '../includes/header.php';
 }
 
 .btn-submit-gradient:hover:not(:disabled) {
-    filter: brightness(1.2);
-    box-shadow: 0 0 20px rgba(var(--primary-rgb), 0.5);
+    filter: brightness(1.1);
+    box-shadow: 0 0 20px rgba(135, 206, 235, 0.6);
     transform: translateY(-1px);
 }
 

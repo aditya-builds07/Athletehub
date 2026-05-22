@@ -453,6 +453,122 @@ require_once '../includes/header.php';
         activeUserId: <?= $activeUserId ? $activeUserId : 'null' ?>,
         lastMsgId: <?= (!empty($messages)) ? end($messages)['id'] : 0 ?>
     };
+
+    // ──────────────────────────────────────────
+    // SYSTEM MESSAGE FORMATTER (OFFICIAL LETTER)
+    // ──────────────────────────────────────────
+    function formatSystemMessages() {
+        document.querySelectorAll('.bubble-text').forEach(el => {
+            if (el.dataset.formatted) return;
+            
+            let htmlText = el.innerHTML;
+            let text = el.innerText || el.textContent;
+            
+            if (text.includes('application for the') && text.includes('role')) {
+                let isApproved = text.includes('approved') && !text.includes('not approved');
+                let isRejected = text.includes('not approved') || text.includes('rejected');
+                
+                if (isApproved || isRejected) {
+                    el.dataset.formatted = "true";
+                    
+                    let roleMatch = text.match(/application for the (.*?) role/i);
+                    let role = roleMatch ? roleMatch[1].trim() : 'Requested';
+                    
+                    let today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+                    let refId = Math.floor(Math.random() * 90000) + 10000;
+                    let userName = "Applicant";
+                    let chatNameObj = document.querySelector('.chat-name');
+                    if (chatNameObj) {
+                        let cn = chatNameObj.textContent.trim();
+                        if (cn.toLowerCase() !== 'admin') {
+                            userName = cn;
+                        }
+                    }
+                    
+                    let bodyHtml = '';
+                    if (isApproved) {
+                        bodyHtml = `
+                            Dear ${userName},<br><br>
+                            We are pleased to inform you that your application for the <b>${role}</b> role has been successfully approved after review by the AthleteHub administration team.<br><br>
+                            Your account permissions have now been updated.<br><br>
+                            <b>New permissions:</b><br>
+                            &bull; Browse athlete profiles<br>
+                            &bull; Post recruitment opportunities<br>
+                            &bull; Send recruitment offers<br>
+                            &bull; Access advanced filters<br><br>
+                            <b>Rules & Conditions:</b><br>
+                            &bull; Maintain professional conduct.<br>
+                            &bull; Follow community guidelines.<br>
+                            &bull; Misuse of privileges may result in suspension.<br><br>
+                            If you need assistance, contact the administration team.
+                        `;
+                    } else {
+                        let reasonMatch = text.split(/Reason:/i);
+                        let reason = reasonMatch.length > 1 ? reasonMatch[1].trim() : "Not specified.";
+                        
+                        bodyHtml = `
+                            Dear ${userName},<br><br>
+                            We regret to inform you that your application for the <b>${role}</b> role has been reviewed and was not approved at this time.<br><br>
+                            <b>Reason for rejection:</b><br>
+                            ${reason}<br><br>
+                            Please review your application details and ensure all provided information is accurate and complete before submitting a new request.<br><br>
+                            If you believe this was a mistake or need further assistance, please contact the administration team.
+                        `;
+                    }
+                    
+                    let cardHtml = `
+                        <div style="background:#fff; border-radius:12px; border:1px solid #e2e8f0; box-shadow:0 4px 6px -1px rgba(0,0,0,0.05); padding:24px; max-width:700px; color:#1e293b; font-family:sans-serif; text-align:left; line-height:1.7; width:100%; box-sizing:border-box;">
+                            <div style="border-bottom:1px solid #f1f5f9; padding-bottom:16px; margin-bottom:16px;">
+                                <div style="font-size:12px; text-transform:uppercase; color:#64748b; font-weight:700; letter-spacing:0.05em; margin-bottom:4px;">System Notification</div>
+                                <div style="font-size:12px; color:#94a3b8; margin-bottom:12px;">AthleteHub Administration</div>
+                                <div style="display:flex; justify-content:space-between; font-size:12px; color:#64748b;">
+                                    <span>Date: ${today}</span>
+                                    <span>Reference ID: AH-${refId}</span>
+                                </div>
+                            </div>
+                            
+                            <div style="font-size:18px; font-weight:600; color:#0f172a; margin-bottom:16px;">
+                                ${role} Role Application ${isApproved ? 'Approval' : 'Rejection'}
+                            </div>
+                            
+                            <div style="font-size:14.5px; color:#334155;">
+                                ${bodyHtml}
+                                <br><br>
+                                <span style="color:#64748b;">Regards,<br>AthleteHub Administration Team</span>
+                            </div>
+                        </div>
+                    `;
+                    
+                    el.innerHTML = cardHtml;
+                    
+                    let bubble = el.closest('.bubble');
+                    if (bubble) {
+                        bubble.style.background = 'transparent';
+                        bubble.style.padding = '0';
+                        bubble.style.boxShadow = 'none';
+                        bubble.style.border = 'none';
+                        bubble.style.maxWidth = '100%';
+                        
+                        // Hide original timestamps and checkmarks inside the bubble since they clash with the clean letter UI
+                        let timeNode = bubble.querySelector('.bubble-time');
+                        if (timeNode) timeNode.style.display = 'none';
+                    }
+                }
+            }
+        });
+    }
+
+    // Run immediately when script executes
+    document.addEventListener('DOMContentLoaded', formatSystemMessages);
+    
+    // Also observe the chatbox for new messages to format them instantly
+    document.addEventListener('DOMContentLoaded', () => {
+        const chatBox = document.getElementById('chatBox');
+        if (chatBox) {
+            const observer = new MutationObserver(formatSystemMessages);
+            observer.observe(chatBox, { childList: true, subtree: true });
+        }
+    });
 </script>
 
 <style>
